@@ -1,0 +1,113 @@
+/* =========================================================
+   Espace adhérent Loops & Play — styles globaux
+   Aligné sur la charte du site principal (noir + canary + violet)
+   ========================================================= */
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+
+:root {
+  --background: 0 0% 0%;
+  --foreground: 276 9% 90%;
+  --card: 0 0% 5%;
+  --primary: 54 100% 54%;          /* canary */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 8%;
+  --muted-foreground: 276 9% 70%;
+  --accent: 271 100% 54%;          /* electric violet */
+  --accent-foreground: 0 0% 100%;
+  --emerald: 155 61% 51%;
+  --border: 276 9% 18%;
+  --ring: 271 100% 54%;
+  --radius: 0.75rem;
+  --destructive: 0 84% 60%;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; border: 0 solid hsl(var(--border)); }
+html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Satoshi', sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+img, video { display: block; max-width: 100%; height: auto; }
+button { font: inherit; cursor: pointer; background: transparent; color: inherit; }
+input, textarea, select { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Clash Display', sans-serif; line-height: 1.1; }
+:focus-visible { outline: 2px solid hsl(var(--accent)); outline-offset: 2px; }
+
+/* Layout helpers */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Boutons globaux */
+.btn-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  font-size: .95rem;
+  padding: .875rem 1.5rem;
+  border-radius: var(--radius);
+  transition: filter .2s, transform .2s;
+  display: inline-block;
+}
+.btn-primary:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+
+.btn-secondary {
+  background: transparent;
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  font-weight: 700;
+  padding: .875rem 1.5rem;
+  border-radius: var(--radius);
+  transition: background .2s, border-color .2s;
+}
+.btn-secondary:hover { background: hsl(var(--secondary)); border-color: hsl(var(--primary)); }
+
+/* Placeholder utilitaire (pour les pages pas encore branchées) */
+.placeholder-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+.placeholder-page h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: hsl(var(--foreground));
+}
+.placeholder-page p { color: hsl(var(--muted-foreground)); max-width: 32rem; }
+.placeholder-page .badge {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / .1);
+  padding: .375rem .875rem;
+  border-radius: 9999px;
+}
+.placeholder-page .back-link {
+  color: hsl(var(--muted-foreground));
+  font-size: .875rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-top: 1rem;
+}
+.placeholder-page .back-link:hover { color: hsl(var(--primary)); }

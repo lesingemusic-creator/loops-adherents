@@ -1,0 +1,167 @@
+/* Page Login — Espace adhérent Loops & Play */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem 1rem;
+  background: hsl(var(--background));
+  overflow: hidden;
+}
+
+.login-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, hsl(var(--accent) / .18), transparent 50%),
+    radial-gradient(circle at 80% 80%, hsl(var(--primary) / .12), transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1.25rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 30px 60px -30px hsl(0 0% 0% / .6);
+}
+
+.login-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+.login-logo img { height: 40px; width: auto; }
+.login-logo span {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -.02em;
+}
+.login-logo span em { font-style: normal; color: hsl(var(--accent)); }
+
+.login-header { margin-bottom: 2rem; text-align: center; }
+.login-eyebrow {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+  margin-bottom: .75rem;
+}
+.login-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+}
+.login-subtitle {
+  margin-top: .625rem;
+  color: hsl(var(--muted-foreground));
+  font-size: .95rem;
+}
+
+.login-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.login-field { display: flex; flex-direction: column; gap: .375rem; }
+.login-field label {
+  font-size: .875rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+}
+.login-field input {
+  width: 100%;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: .875rem 1rem;
+  color: hsl(var(--foreground));
+  font-size: .95rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.login-field input::placeholder { color: hsl(var(--muted-foreground)); opacity: .55; }
+.login-field input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px hsl(var(--ring));
+}
+
+.login-error,
+.login-info {
+  font-size: .875rem;
+  padding: .75rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid;
+}
+.login-error {
+  color: hsl(var(--destructive));
+  background: hsl(var(--destructive) / .08);
+  border-color: hsl(var(--destructive) / .3);
+}
+.login-info {
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / .08);
+  border-color: hsl(var(--primary) / .25);
+}
+
+.login-btn {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  margin-top: .5rem;
+  transition: filter .2s, transform .2s;
+}
+.login-btn:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+.login-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.login-forgot {
+  text-align: center;
+  font-size: .875rem;
+  color: hsl(var(--muted-foreground));
+  margin-top: .25rem;
+  transition: color .2s;
+}
+.login-forgot:hover { color: hsl(var(--primary)); }
+
+.login-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid hsl(var(--border));
+  text-align: center;
+}
+.login-footer p {
+  font-size: .875rem;
+  color: hsl(var(--muted-foreground));
+}
+.login-footer a {
+  color: hsl(var(--primary));
+  font-weight: 600;
+}
+.login-footer a:hover { filter: brightness(1.2); }
+
+.login-back-site {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 2;
+  font-size: .875rem;
+  color: hsl(var(--muted-foreground));
+  transition: color .2s;
+}
+.login-back-site:hover { color: hsl(var(--primary)); }

@@ -1,0 +1,22 @@
+{
+  "name": "loops-play-adherents",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Espace adhérent Loops & Play — accès privé aux formations, sample packs, mix de la communauté et sorties Ft. Low Records.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.0",
+    "@supabase/supabase-js": "^2.45.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.2",
+    "vite": "^5.4.10"
+  }
+}
