@@ -1,0 +1,243 @@
+/* =========================================================
+   Panel admin
+   ========================================================= */
+
+.admin-section {
+  margin-bottom: 3.5rem;
+}
+
+.admin-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+.admin-section-header h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+.admin-feedback {
+  padding: .875rem 1.25rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  font-size: .9375rem;
+  font-weight: 500;
+}
+.admin-feedback-ok {
+  background: hsl(var(--emerald) / .12);
+  color: hsl(var(--emerald));
+  border: 1px solid hsl(var(--emerald) / .3);
+}
+.admin-feedback-error {
+  background: hsl(var(--destructive) / .1);
+  color: hsl(var(--destructive));
+  border: 1px solid hsl(var(--destructive) / .3);
+}
+
+/* ---------- Formulaire édition / création ---------- */
+
+.admin-form {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-form h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: .25rem;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  font-size: .875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.admin-form label > span {
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: hsl(var(--foreground));
+}
+
+.admin-form label > small {
+  font-size: .8125rem;
+  line-height: 1.4;
+  color: hsl(var(--muted-foreground));
+  margin-top: .25rem;
+}
+.admin-form label > small code {
+  background: hsl(var(--secondary));
+  padding: .1rem .35rem;
+  border-radius: .25rem;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: .8125rem;
+  color: hsl(var(--primary));
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: .5rem;
+  padding: .75rem .875rem;
+  font-size: .9375rem;
+  color: hsl(var(--foreground));
+  transition: border-color .2s;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+}
+
+.admin-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 640px) {
+  .admin-form-row { grid-template-columns: 1fr; }
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+
+/* ---------- Tableau des modules ---------- */
+
+.admin-table {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.admin-table-head,
+.admin-table-row {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 2.5fr) 110px 90px minmax(0, 1.5fr) 160px;
+  gap: 1rem;
+  padding: .875rem 1.25rem;
+  align-items: center;
+  font-size: .875rem;
+}
+
+.admin-table-head {
+  background: hsl(var(--secondary));
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .75rem;
+  color: hsl(var(--muted-foreground));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.admin-table-row {
+  border-bottom: 1px solid hsl(var(--border));
+  transition: background .15s;
+}
+.admin-table-row:last-child { border-bottom: 0; }
+.admin-table-row:hover { background: hsl(var(--secondary) / .5); }
+
+.admin-table .col-num {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  font-size: 1rem;
+}
+.admin-table .col-titre {
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-table .col-video {
+  font-size: .8125rem;
+  color: hsl(var(--muted-foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-table .video-ok {
+  color: hsl(var(--emerald));
+  font-family: 'Menlo', 'Consolas', monospace;
+}
+.admin-table .video-pending {
+  color: hsl(var(--accent));
+  font-style: italic;
+}
+
+.pack-badge {
+  display: inline-block;
+  font-size: .6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: .2rem .55rem;
+  border-radius: 9999px;
+}
+.pack-demo { background: hsl(var(--muted-foreground) / .15); color: hsl(var(--muted-foreground)); }
+.pack-resident { background: hsl(var(--primary) / .15); color: hsl(var(--primary)); }
+.pack-headliner { background: hsl(var(--accent) / .2); color: hsl(var(--accent)); }
+
+.col-actions {
+  display: flex;
+  gap: .75rem;
+  justify-content: flex-end;
+}
+
+.link-btn {
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  font-size: .8125rem;
+  font-weight: 600;
+  padding: .25rem .5rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .15s;
+}
+.link-btn:hover { color: hsl(var(--primary)); }
+.link-btn-danger:hover { color: hsl(var(--destructive)); }
+
+/* Responsive — tableau qui s'empile sur mobile */
+@media (max-width: 768px) {
+  .admin-table-head { display: none; }
+  .admin-table-row {
+    grid-template-columns: 1fr;
+    gap: .5rem;
+    padding: 1rem 1.25rem;
+  }
+  .admin-table-row > div::before {
+    content: attr(data-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: .6875rem;
+    color: hsl(var(--muted-foreground));
+    margin-right: .5rem;
+  }
+  .col-actions { justify-content: flex-start; padding-top: .25rem; }
+}

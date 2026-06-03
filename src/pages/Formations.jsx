@@ -1,15 +1,152 @@
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../lib/auth'
+
+const PACK_LABELS = {
+  demo: 'Démo',
+  resident: 'Résident',
+  headliner: 'Headliner',
+}
+
+const PACK_ORDER = ['demo', 'resident', 'headliner']
+
 export default function Formations() {
+  const { profile, loading: authLoading } = useAuth()
+  const [formations, setFormations] = useState([])
+  const [progression, setProgression] = useState(new Set())
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (authLoading || !profile?.id) return
+
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+
+      const [formationsRes, progressionRes] = await Promise.all([
+        supabase.from('formations').select('*').order('ordre'),
+        supabase
+          .from('formations_progression')
+          .select('formation_id')
+          .eq('user_id', profile.id),
+      ])
+
+      if (formationsRes.error) {
+        console.error('[formations] error:', formationsRes.error)
+        setError(formationsRes.error.message)
+      }
+
+      setFormations(formationsRes.data || [])
+      setProgression(
+        new Set((progressionRes.data || []).map((p) => p.formation_id))
+      )
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [profile?.id, authLoading])
+
+  if (authLoading || loading) {
+    return (
+      <div className="container">
+        <p style={{ color: 'hsl(var(--muted-foreground))' }}>Chargement des formations…</p>
+      </div>
+    )
+  }
+
+  // Groupement par pack
+  const grouped = formations.reduce((acc, f) => {
+    if (!acc[f.pack_required]) acc[f.pack_required] = []
+    acc[f.pack_required].push(f)
+    return acc
+  }, {})
+
+  const totalCompleted = progression.size
+  const total = formations.length
+
   return (
     <div className="container">
       <header className="app-page-header">
         <p className="app-page-eyebrow">Formations</p>
         <h1 className="app-page-title">Tes modules vidéo</h1>
-        <p className="app-page-subtitle">Catalogue des cours et accès Notion partagés. À développer en Session 3.</p>
+        <p className="app-page-subtitle">
+          {total === 0
+            ? 'Aucun module disponible pour ton parcours pour l\'instant.'
+            : (
+              <>
+                <strong style={{ color: 'hsl(var(--foreground))' }}>{totalCompleted}/{total}</strong>{' '}
+                modules terminés
+              </>
+            )}
+        </p>
       </header>
-      <div className="placeholder-block">
-        <span className="badge">Session 3</span>
-        <p>Cette page affichera la liste des modules vidéo (Vimeo / YouTube unlisted) et les liens vers les Notion partagés selon ton parcours.</p>
-      </div>
+
+      {error && (
+        <div className="formations-error">
+          Erreur de chargement : {error}
+        </div>
+      )}
+
+      {total === 0 && !error && (
+        <div className="placeholder-block">
+          <span className="badge">Bientôt disponible</span>
+          <p>Les modules vidéo de ton parcours arrivent. Jérôme tourne en ce moment les premières capsules.</p>
+        </div>
+      )}
+
+      {PACK_ORDER.map((pack) => {
+        const list = grouped[pack]
+        if (!list || list.length === 0) return null
+        const sectionCompleted = list.filter((f) => progression.has(f.id)).length
+
+        return (
+          <section key={pack} className="formations-section">
+            <div className="formations-pack-header">
+              <h2 className="formations-pack-title">
+                Parcours <span className="accent">{PACK_LABELS[pack]}</span>
+              </h2>
+              <span className="formations-pack-count">
+                {sectionCompleted}/{list.length}
+              </span>
+            </div>
+
+            <div className="formations-grid">
+              {list.map((f) => {
+                const done = progression.has(f.id)
+                return (
+                  <Link
+                    to={`/formations/${f.id}`}
+                    key={f.id}
+                    className={`formation-card${done ? ' is-done' : ''}`}
+                  >
+                    <div className="formation-card-num">
+                      {String(f.ordre).padStart(2, '0')}
+                    </div>
+                    <div className="formation-card-body">
+                      <h3>{f.titre}</h3>
+                      {f.description && <p>{f.description}</p>}
+                      <div className="formation-card-meta">
+                        {f.duree_min && <span>{f.duree_min} min</span>}
+                        {!f.video_youtube_id && (
+                          <span className="formation-card-soon">Bientôt</span>
+                        )}
+                        {done && (
+                          <span className="formation-card-done">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            Vu
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )
+      })}
     </div>
   )
 }
