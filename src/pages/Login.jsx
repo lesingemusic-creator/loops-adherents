@@ -1,35 +1,51 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
+import { useAuth } from '../lib/auth'
 import '../styles/login.css'
 
 export default function Login() {
   const navigate = useNavigate()
+  const { user, loading: authLoading } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
-  const [info, setInfo] = useState(null)
+
+  // Si déjà connecté, redirige direct au dashboard
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate('/dashboard', { replace: true })
+    }
+  }, [user, authLoading, navigate])
 
   async function handleSubmit(e) {
     e.preventDefault()
-    setLoading(true)
+    setSubmitting(true)
     setError(null)
-    setInfo(null)
 
-    // TODO Session 2 : remplacer par supabase.auth.signInWithPassword
-    // import { supabase } from '../lib/supabase'
-    // const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    setTimeout(() => {
-      setLoading(false)
-      setInfo('Auth Supabase pas encore branchée. Sera fait en Session 2 dès que les clés Supabase sont prêtes.')
-      // Demo : permet d'accéder au dashboard quand même
-      setTimeout(() => navigate('/dashboard'), 1200)
-    }, 700)
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    })
+
+    if (authError) {
+      setSubmitting(false)
+      setError(
+        authError.message === 'Invalid login credentials'
+          ? 'Email ou mot de passe incorrect.'
+          : 'Erreur : ' + authError.message
+      )
+      return
+    }
+
+    // Le AuthProvider va capter la session via onAuthStateChange.
+    navigate('/dashboard', { replace: true })
   }
 
   return (
     <div className="login-page">
-      <a href="../site/index.html" className="login-back-site">← Retour au site</a>
+      <a href="https://loopsandplay.netlify.app" className="login-back-site">← Retour au site</a>
       <div className="login-bg" aria-hidden="true" />
 
       <div className="login-card">
@@ -57,6 +73,7 @@ export default function Login() {
               placeholder="ton@email.com"
               required
               autoComplete="email"
+              disabled={submitting}
             />
           </div>
 
@@ -70,14 +87,14 @@ export default function Login() {
               placeholder="••••••••"
               required
               autoComplete="current-password"
+              disabled={submitting}
             />
           </div>
 
           {error && <p className="login-error">{error}</p>}
-          {info && <p className="login-info">{info}</p>}
 
-          <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? 'Connexion...' : 'Se connecter'}
+          <button type="submit" className="login-btn" disabled={submitting || authLoading}>
+            {submitting ? 'Connexion…' : 'Se connecter'}
           </button>
 
           <a
