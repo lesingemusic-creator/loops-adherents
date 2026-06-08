@@ -14,6 +14,98 @@
   font-size: .9375rem;
 }
 
+/* ---------- Tabs Mix / MAO ---------- */
+.formations-tabs {
+  display: flex;
+  gap: .5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  padding: .5rem;
+  margin-bottom: 2.5rem;
+  max-width: 32rem;
+}
+
+.formations-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .85rem 1rem;
+  border-radius: .625rem;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  font-family: 'Clash Display', sans-serif;
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  transition: background .2s, color .2s;
+  cursor: pointer;
+}
+.formations-tab:hover {
+  color: hsl(var(--foreground));
+}
+.formations-tab.is-active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+.formations-tab.is-active:hover {
+  color: hsl(var(--primary-foreground));
+}
+.formations-tab.is-locked {
+  color: hsl(var(--muted-foreground) / .65);
+}
+.formations-tab.is-locked.is-active {
+  background: hsl(var(--accent) / .15);
+  color: hsl(var(--accent));
+}
+
+.formations-tab-icon { font-size: 1.125rem; line-height: 1; }
+.formations-tab-label { white-space: nowrap; }
+.formations-tab-lock { font-size: .75rem; margin-left: .125rem; }
+
+@media (max-width: 480px) {
+  .formations-tab-label { font-size: .8125rem; }
+}
+
+/* ---------- Bloc upsell (l'user n'a pas accès à la catégorie) ---------- */
+.formations-upsell {
+  background:
+    radial-gradient(circle at 30% 20%, hsl(var(--accent) / .12), transparent 60%),
+    hsl(var(--card));
+  border: 1px solid hsl(var(--accent) / .3);
+  border-radius: 1.25rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+.formations-upsell-icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: .5rem;
+  filter: drop-shadow(0 0 18px hsl(var(--accent) / .5));
+}
+.formations-upsell h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -.015em;
+}
+.formations-upsell p {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.5;
+  max-width: 28rem;
+}
+.formations-upsell .btn-primary {
+  margin-top: .5rem;
+}
+
 .formations-section {
   margin-bottom: 3rem;
 }
@@ -240,6 +332,158 @@
   color: hsl(var(--foreground));
   line-height: 1.6;
   font-size: 1rem;
+}
+
+/* ---------- Page Calendrier (embed Calendly) ---------- */
+.calendrier-embed {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0 40px hsl(var(--primary) / .08);
+}
+
+.calendrier-frame {
+  width: 100%;
+  height: 80vh;
+  min-height: 700px;
+  border: 0;
+  display: block;
+}
+
+/* ---------- Documents PDF côté adhérent ---------- */
+.formation-docs {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.formation-docs h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: .875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: hsl(var(--primary));
+  margin-bottom: 1rem;
+}
+
+.formation-docs-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.formation-docs-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .875rem 1rem;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: .625rem;
+  transition: border-color .2s, transform .2s;
+}
+.formation-docs-item:hover {
+  border-color: hsl(var(--primary) / .5);
+}
+.formation-docs-item.is-active {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary) / .05);
+}
+
+.formation-docs-item-info {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-width: 0;
+  flex: 1;
+  color: hsl(var(--muted-foreground));
+}
+
+.formation-docs-item-title {
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.formation-docs-item-size {
+  font-size: .75rem;
+  font-family: 'Menlo', 'Consolas', monospace;
+  color: hsl(var(--muted-foreground));
+  flex-shrink: 0;
+}
+
+.formation-docs-item-actions {
+  display: flex;
+  gap: .5rem;
+  flex-shrink: 0;
+}
+
+.btn-small {
+  padding: .45rem .85rem;
+  font-size: .8125rem;
+}
+
+@media (max-width: 640px) {
+  .formation-docs-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: .625rem;
+  }
+  .formation-docs-item-actions {
+    justify-content: space-between;
+  }
+}
+
+/* ---------- Viewer PDF inline ---------- */
+.formation-doc-viewer {
+  margin-top: 1.5rem;
+  border: 1px solid hsl(var(--primary) / .4);
+  border-radius: .75rem;
+  overflow: hidden;
+  background: hsl(var(--background));
+  box-shadow: 0 0 30px hsl(var(--primary) / .12);
+}
+
+.formation-doc-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .75rem 1rem;
+  background: hsl(var(--primary) / .08);
+  border-bottom: 1px solid hsl(var(--border));
+  font-size: .8125rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+
+.formation-doc-viewer-frame {
+  width: 100%;
+  height: 75vh;
+  min-height: 500px;
+  border: 0;
+  background: hsl(var(--background));
+}
+
+.formation-doc-viewer-hint {
+  display: block;
+  padding: .75rem 1rem;
+  background: hsl(var(--accent) / .08);
+  border-top: 1px solid hsl(var(--border));
+  font-size: .8125rem;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
 }
 
 .formation-actions {

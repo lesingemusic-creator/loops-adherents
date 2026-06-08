@@ -17,6 +17,17 @@ create table if not exists public.formations (
   updated_at timestamptz default now()
 );
 
+-- Si la table existait déjà partiellement (run incomplet), on ajoute les colonnes manquantes
+alter table public.formations add column if not exists ordre int;
+alter table public.formations add column if not exists pack_required text;
+alter table public.formations add column if not exists titre text;
+alter table public.formations add column if not exists description text;
+alter table public.formations add column if not exists duree_min int;
+alter table public.formations add column if not exists video_youtube_id text;
+alter table public.formations add column if not exists thumbnail_url text;
+alter table public.formations add column if not exists created_at timestamptz default now();
+alter table public.formations add column if not exists updated_at timestamptz default now();
+
 create index if not exists formations_ordre_idx on public.formations(ordre);
 create index if not exists formations_pack_idx on public.formations(pack_required);
 

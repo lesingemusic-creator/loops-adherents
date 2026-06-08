@@ -6,6 +6,7 @@ import AuthRedirect from './pages/AuthRedirect.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Formations from './pages/Formations.jsx'
 import FormationDetail from './pages/FormationDetail.jsx'
+import Calendrier from './pages/Calendrier.jsx'
 import Packs from './pages/Packs.jsx'
 import Profil from './pages/Profil.jsx'
 import Admin from './pages/Admin.jsx'
@@ -31,6 +32,7 @@ export default function App() {
       <Route path="/dashboard" element={<Private><Dashboard /></Private>} />
       <Route path="/formations" element={<Private><Formations /></Private>} />
       <Route path="/formations/:id" element={<Private><FormationDetail /></Private>} />
+      <Route path="/calendrier" element={<Private><Calendrier /></Private>} />
       <Route path="/packs" element={<Private><Packs /></Private>} />
       <Route path="/profil" element={<Private><Profil /></Private>} />
       <Route path="/admin" element={<Private><Admin /></Private>} />

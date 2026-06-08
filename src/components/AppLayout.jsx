@@ -30,6 +30,7 @@ export default function AppLayout({ children }) {
           <nav className="app-nav">
             <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink>
             <NavLink to="/formations" className={({ isActive }) => isActive ? 'active' : ''}>Formations</NavLink>
+            <NavLink to="/calendrier" className={({ isActive }) => isActive ? 'active' : ''}>Calendrier</NavLink>
             <NavLink to="/packs" className={({ isActive }) => isActive ? 'active' : ''}>Ressources</NavLink>
             <NavLink to="/profil" className={({ isActive }) => isActive ? 'active' : ''}>Profil</NavLink>
             {isAdmin && <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink>}
