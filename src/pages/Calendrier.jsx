@@ -10,7 +10,7 @@ import { useAuth } from '../lib/auth'
  * Si plus tard tu veux 2 events distincts (Mix / MAO), tu peux
  * créer un objet { mix: '...', mao: '...' } et ajouter un toggle.
  */
-const CALENDLY_URL = '' // ⚠️ À remplir avec l'URL réelle de Jérôme
+const CALENDLY_URL = 'https://calendly.com/lplaylyon/reservationloopsplaylyon'
 
 export default function Calendrier() {
   const { profile } = useAuth()
