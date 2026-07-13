@@ -8,7 +8,7 @@ export default function Packs() {
       </header>
       <div className="placeholder-block">
         <span className="badge">Session 3-4</span>
-        <p>Cette page listera : les sample packs maison, les sorties du label Ft. Low Records (avec embeds Spotify/SoundCloud), les presets Ableton et les mix uploadés par la communauté.</p>
+        <p>Cette page listera : les sample packs maison, les sorties du label FT.LOH Records (avec embeds Spotify/SoundCloud), les presets Ableton et les mix uploadés par la communauté.</p>
       </div>
     </div>
   )

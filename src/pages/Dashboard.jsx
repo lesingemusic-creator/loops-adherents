@@ -42,7 +42,7 @@ export default function Dashboard() {
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
           </div>
           <h2>Ressources</h2>
-          <p>Sample packs, sorties Ft. Low Records, mix de la communauté.</p>
+          <p>Sample packs, sorties FT.LOH Records, mix de la communauté.</p>
         </Link>
 
         <Link to="/profil" className="dashboard-card">

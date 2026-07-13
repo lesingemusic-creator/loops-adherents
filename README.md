@@ -80,7 +80,7 @@ espace-adherent/
 
 - `profiles` (lié à `auth.users`) : nom, pseudo DJ, photo, bio, liens sociaux, pack
 - `formations` : catalogue modules (titre, video_url, notion_url, pack_required)
-- `ressources` : sample packs + sorties Ft. Low + presets (download_url Drive, stream_url Spotify/SC)
+- `ressources` : sample packs + sorties FT.LOH Records + presets (download_url Drive, stream_url Spotify/SC)
 - `mix_adherents` : uploads de la communauté (statut : pending/approved/rejected)
 
 Policies RLS (Row Level Security) à configurer :
