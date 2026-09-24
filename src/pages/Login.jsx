@@ -45,7 +45,7 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      <a href="https://loopsandplay.netlify.app" className="login-back-site">← Retour au site</a>
+      <a href="https://loopsplay.com" className="login-back-site">← Retour au site</a>
       <div className="login-bg" aria-hidden="true" />
 
       <div className="login-card">

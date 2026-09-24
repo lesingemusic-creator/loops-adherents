@@ -339,3 +339,53 @@
   }
   .col-actions { justify-content: flex-start; padding-top: .25rem; }
 }
+
+/* =========================================================
+   Eleves et cours filmes (brique 4, brief du 18/09/2026)
+   ========================================================= */
+
+.admin-eleves { display: block; }
+
+/* Le tableau generique est cale sur les colonnes des modules de formation.
+   Celui des seances filmees en a quatre : on redefinit la grille ici plutot
+   que de toucher a la regle partagee. */
+.admin-eleves .admin-table-head,
+.admin-eleves .admin-table-row {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1.6fr) 110px 100px;
+}
+
+@media (max-width: 700px) {
+  .admin-eleves .admin-table-head { display: none; }
+  .admin-eleves .admin-table-row {
+    grid-template-columns: 1fr;
+    gap: .35rem;
+  }
+}
+
+.admin-vide {
+  color: hsl(var(--muted-foreground));
+  font-size: .92rem;
+  line-height: 1.6;
+  padding: 1.25rem 0;
+}
+
+.admin-hint {
+  font-size: .82rem;
+  line-height: 1.65;
+  color: hsl(var(--muted-foreground) / .9);
+  background: hsl(var(--secondary));
+  border-left: 2px solid hsl(var(--border));
+  border-radius: .4rem;
+  padding: .85rem 1rem;
+  margin: 0 0 1.25rem;
+}
+.admin-hint strong { color: hsl(var(--foreground)); font-weight: 600; }
+
+.admin-link-danger {
+  font-size: .82rem;
+  color: hsl(var(--destructive));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+.admin-link-danger:hover { filter: brightness(1.2); }

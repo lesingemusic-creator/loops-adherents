@@ -1,5 +1,7 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
+import { supabase } from '../lib/supabase'
 import '../styles/layout.css'
 
 /**
@@ -8,9 +10,32 @@ import '../styles/layout.css'
  */
 export default function AppLayout({ children }) {
   const navigate = useNavigate()
-  const { profile, signOut } = useAuth()
+  const location = useLocation()
+  const { user, profile, signOut } = useAuth()
 
   const isAdmin = profile?.role === 'admin'
+
+  // Pastille sur "Mon cours filmé" tant qu'une séance n'a pas été ouverte.
+  // On recompte à chaque changement de page : c'est une requête de comptage,
+  // elle ne ramène aucune ligne.
+  const [coursNonVus, setCoursNonVus] = useState(0)
+
+  useEffect(() => {
+    if (!user?.id) return
+    let annule = false
+
+    supabase
+      .from('cours_filmes')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .is('vu_le', null)
+      .then(({ count, error }) => {
+        if (annule || error) return
+        setCoursNonVus(count || 0)
+      })
+
+    return () => { annule = true }
+  }, [user?.id, location.pathname])
   const initial = (profile?.pseudo_dj || profile?.nom || 'U').charAt(0).toUpperCase()
 
   async function handleSignOut() {
@@ -31,6 +56,12 @@ export default function AppLayout({ children }) {
             <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink>
             <NavLink to="/formations" className={({ isActive }) => isActive ? 'active' : ''}>Formations</NavLink>
             <NavLink to="/calendrier" className={({ isActive }) => isActive ? 'active' : ''}>Calendrier</NavLink>
+            <NavLink to="/mon-cours-filme" className={({ isActive }) => isActive ? 'active' : ''}>
+              Mon cours filmé
+              {coursNonVus > 0 && (
+                <span className="nav-pastille" aria-label={`${coursNonVus} nouvelle(s) séance(s)`} />
+              )}
+            </NavLink>
             <NavLink to="/packs" className={({ isActive }) => isActive ? 'active' : ''}>Ressources</NavLink>
             <NavLink to="/profil" className={({ isActive }) => isActive ? 'active' : ''}>Profil</NavLink>
             {isAdmin && <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink>}
@@ -45,7 +76,7 @@ export default function AppLayout({ children }) {
               )}
             </div>
             <button onClick={handleSignOut} className="app-logout" aria-label="Se déconnecter">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             </button>
           </div>
         </div>

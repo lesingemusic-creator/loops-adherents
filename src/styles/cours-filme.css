@@ -1,0 +1,217 @@
+/* =========================================================
+   Loops & Play, onglet Mon cours filme
+   Brique 4 du brief Jerome du 18/09/2026.
+   ========================================================= */
+
+/* ---------- Alertes ---------- */
+
+.cf-alerte {
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  font-size: .94rem;
+  line-height: 1.6;
+}
+.cf-alerte strong { color: hsl(var(--foreground)); font-weight: 600; }
+
+.cf-alerte--attention {
+  background: hsl(var(--primary) / .1);
+  border: 1px solid hsl(var(--primary) / .35);
+  color: hsl(54 60% 82%);
+}
+.cf-alerte--erreur {
+  background: hsl(var(--destructive) / .1);
+  border: 1px solid hsl(var(--destructive) / .4);
+  color: hsl(0 80% 84%);
+}
+
+/* ---------- Structure ---------- */
+
+.cf-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 1.5rem;
+  align-items: start;
+  padding-bottom: 4rem;
+}
+@media (max-width: 900px) {
+  .cf-layout { grid-template-columns: 1fr; }
+}
+
+/* ---------- Lecteur ---------- */
+
+.cf-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: hsl(var(--secondary));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.cf-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.cf-video--casse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+  aspect-ratio: auto;
+  min-height: 240px;
+}
+.cf-video--casse p {
+  font-size: .94rem;
+  line-height: 1.65;
+  color: hsl(var(--muted-foreground));
+  max-width: 44ch;
+}
+
+.cf-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.cf-titre {
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -.01em;
+}
+.cf-date {
+  font-size: .88rem;
+  color: hsl(var(--muted-foreground));
+  margin-top: .35rem;
+}
+
+.cf-dl {
+  flex: 0 0 auto;
+  font-size: .87rem;
+  font-weight: 500;
+  padding: .7rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--secondary));
+  transition: border-color .18s ease, background .18s ease;
+}
+.cf-dl:hover {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary) / .1);
+}
+
+/* ---------- Liste des seances ---------- */
+
+.cf-liste {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.cf-liste-titre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.cf-liste-compte {
+  font-family: 'Satoshi', sans-serif;
+  font-size: .75rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--secondary));
+  border-radius: 999px;
+  padding: .18rem .6rem;
+}
+
+.cf-liste ul { display: flex; flex-direction: column; gap: .35rem; }
+
+.cf-item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  width: 100%;
+  text-align: left;
+  padding: .75rem .85rem;
+  border-radius: .55rem;
+  border: 1px solid transparent;
+  transition: background .18s ease, border-color .18s ease;
+}
+.cf-item:hover { background: hsl(var(--secondary)); }
+.cf-item.is-actif {
+  background: hsl(var(--primary) / .1);
+  border-color: hsl(var(--primary) / .45);
+}
+
+.cf-item-txt { display: flex; flex-direction: column; gap: .18rem; min-width: 0; flex: 1 1 auto; }
+.cf-item-titre {
+  font-size: .9rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cf-item-date { font-size: .78rem; color: hsl(var(--muted-foreground)); }
+
+.cf-pastille {
+  flex: 0 0 auto;
+  width: .55rem;
+  height: .55rem;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / .2);
+}
+
+.cf-liste-note {
+  font-size: .78rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground) / .85);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* ---------- Etats vides ---------- */
+
+.cf-vide { color: hsl(var(--muted-foreground)); padding: 2rem 0 4rem; }
+
+.cf-vide-bloc {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.cf-vide-titre {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: .75rem;
+}
+.cf-vide-texte {
+  font-size: .95rem;
+  line-height: 1.7;
+  color: hsl(var(--muted-foreground));
+  max-width: 48ch;
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-item, .cf-dl { transition: none; }
+}

@@ -219,3 +219,16 @@
   color: hsl(var(--muted-foreground));
   max-width: 36rem;
 }
+
+/* Pastille "nouvelle seance filmee" dans la barre de navigation.
+   Posee ici et pas dans cours-filme.css : elle doit etre visible depuis
+   toutes les pages, or cours-filme.css n'est charge que sur la sienne. */
+.app-nav a .nav-pastille {
+  display: inline-block;
+  width: .45rem;
+  height: .45rem;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  margin-left: .35rem;
+  vertical-align: super;
+}

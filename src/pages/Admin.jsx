@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { supabase } from '../lib/supabase'
+import AdminEleves from '../components/AdminEleves.jsx'
 
 const PACKS = ['demo', 'resident', 'headliner']
 const PACK_LABELS = { demo: 'Démo', resident: 'Résident', headliner: 'Headliner' }
@@ -490,12 +491,9 @@ export default function Admin() {
 
       <section className="admin-section">
         <div className="admin-section-header">
-          <h2>Adhérents</h2>
+          <h2>Élèves et cours filmés</h2>
         </div>
-        <div className="placeholder-block">
-          <span className="badge">Session 4</span>
-          <p>Gestion des adhérents (création, attribution mix_pack / mao_pack, suppression) à venir.</p>
-        </div>
+        <AdminEleves />
       </section>
     </div>
   )
