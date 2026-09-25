@@ -7,3 +7,6 @@ dist
 *.log
 .vscode
 .idea
+
+# Secrets serveur (config PHP hors racine web)
+serveur/

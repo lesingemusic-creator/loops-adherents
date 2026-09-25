@@ -4,9 +4,9 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
 
 const PACK_LABELS = {
-  demo: 'Démo',
-  resident: 'Résident',
-  headliner: 'Headliner',
+  demo: 'Bloc 1',
+  resident: 'Bloc 2',
+  headliner: 'Bloc 3',
 }
 
 const PACK_ORDER = ['demo', 'resident', 'headliner']
@@ -177,7 +177,7 @@ export default function Formations() {
           <section key={pack} className="formations-section">
             <div className="formations-pack-header">
               <h2 className="formations-pack-title">
-                Niveau <span className="accent">{PACK_LABELS[pack]}</span>
+                <span className="accent">{PACK_LABELS[pack]}</span>
               </h2>
               <span className="formations-pack-count">
                 {sectionCompleted}/{list.length}

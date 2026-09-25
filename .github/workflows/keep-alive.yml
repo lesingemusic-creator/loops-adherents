@@ -1,0 +1,40 @@
+# Backstage Loops & Play : garde Supabase eveille et verifie que le Backstage repond.
+#
+# Remplace le cron Vercel depuis le passage sur loopsplay.com/backstage (25/09/2026).
+# Supabase Free met le projet en pause apres 7 jours sans activite.
+#
+# Preuve qu'il a tourne : l'onglet Actions du depot, une ligne verte par jour.
+# Alerte quand il s'arrete : GitHub envoie un mail au proprietaire du depot a
+# chaque echec. Attention, GitHub desactive aussi les workflows planifies apres
+# 60 jours sans commit sur un depot public : le mail d'avertissement arrive avant.
+
+name: keep-alive
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # tous les jours, 8h heure de Paris en ete
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Supabase keep_alive
+        env:
+          URL: https://tisypqtknflvtlbgjqqw.supabase.co
+          # Cle anon : publique par design, la meme que dans l'app.
+          KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpc3lwcXRrbmZsdnRsYmdqcXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0ODU1MDYsImV4cCI6MjA5NjA2MTUwNn0.y1q7z5ICVueCSQHGIf2jKKDpcDZh2PkKZn0ImzsjZ1Y
+        run: |
+          code=$(curl -s -o body.txt -w '%{http_code}' -X POST "$URL/rest/v1/rpc/keep_alive" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" -H 'Content-Type: application/json')
+          echo "HTTP $code : $(cat body.txt)"
+          test "$code" = "200"
+
+      - name: Le Backstage repond
+        run: |
+          for u in https://loopsplay.com/backstage/ https://loopsplay.com/backstage/api/discord-config.php; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$u")
+            echo "$u -> $code"
+            test "$code" = "200"
+          done

@@ -1,0 +1,36 @@
+# =========================================================
+# Backstage Loops & Play, servi sous loopsplay.com/backstage/
+# Pose le 25/09/2026 par mfdy.digital.
+# =========================================================
+
+# Espace prive : jamais indexe.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+# Le fichier d'outils PHP n'est jamais appele directement.
+<Files "_commun.php">
+  Require all denied
+</Files>
+
+RewriteEngine On
+RewriteBase /backstage/
+
+# L'app a une seule page : toute URL qui n'est ni un fichier ni un
+# dossier existant (donc /backstage/formations, /backstage/admin...)
+# sert index.html, et React Router prend le relais.
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# index.html jamais en cache (il pointe vers les assets du dernier build),
+# les assets fingerprintes en cache long.
+<IfModule mod_headers.c>
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

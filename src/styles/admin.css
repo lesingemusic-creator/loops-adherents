@@ -389,3 +389,144 @@
   padding: 0;
 }
 .admin-link-danger:hover { filter: brightness(1.2); }
+
+/* =========================================================
+   Inscriptions, generateur de comptes, fiche eleve, Discord
+   Briques 1 a 3 du brief Jerome, posees le 25/09/2026.
+   ========================================================= */
+
+.admin-subhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  margin-bottom: .75rem;
+}
+.admin-subhead h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.admin-compteur {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 .4rem;
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-family: 'Satoshi', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.admin-link {
+  font-size: .85rem;
+  color: hsl(var(--muted-foreground));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+.admin-link:hover { color: hsl(var(--foreground)); }
+
+.admin-cartes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.admin-carte {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  font-size: .92rem;
+  min-width: 0;
+}
+.admin-carte-nouvelle { border-color: hsl(var(--primary) / .45); }
+.admin-carte header {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  align-items: baseline;
+}
+.admin-carte header span { color: hsl(var(--muted-foreground)); font-size: .8rem; white-space: nowrap; }
+.admin-carte p { color: hsl(var(--muted-foreground)); line-height: 1.5; overflow-wrap: anywhere; }
+.admin-carte-contact a { text-decoration: underline; text-underline-offset: 2px; }
+.admin-carte footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: .4rem;
+}
+
+.admin-badge {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  background: hsl(var(--muted-foreground) / .15);
+  color: hsl(var(--muted-foreground));
+}
+.admin-badge-ok { background: hsl(var(--emerald) / .15); color: hsl(var(--emerald)); }
+.admin-badge-attente { background: hsl(var(--primary) / .15); color: hsl(var(--primary)); }
+
+.admin-identifiants {
+  background: hsl(var(--emerald) / .08);
+  border: 1px solid hsl(var(--emerald) / .4);
+  border-radius: 1rem;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+}
+.admin-identifiants-titre {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.admin-identifiants dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: .5rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.admin-identifiants dt { color: hsl(var(--muted-foreground)); font-size: .9rem; }
+.admin-identifiants dd { font-weight: 600; overflow-wrap: anywhere; }
+.admin-mdp {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 1.1rem;
+  color: hsl(var(--primary));
+  letter-spacing: .03em;
+}
+
+.admin-fiche-etat {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  font-size: .9rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1.25rem;
+}
+.admin-fiche-etat strong { color: hsl(var(--foreground)); font-weight: 600; }
+
+.admin-discord-cles {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .admin-form { padding: 1.25rem; }
+  .admin-identifiants { padding: 1.25rem; }
+  .admin-identifiants dl { grid-template-columns: 1fr; gap: .15rem; }
+  .admin-identifiants dd { margin-bottom: .6rem; }
+}

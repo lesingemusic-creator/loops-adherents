@@ -1,6 +1,10 @@
 {
-  "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  "redirects": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "https://loopsplay.com/backstage/$1",
+      "permanent": false
+    }
   ],
   "crons": [
     {

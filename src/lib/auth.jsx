@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { supabase } from './supabase'
 
 const AuthContext = createContext({
@@ -38,6 +38,35 @@ export function AuthProvider({ children }) {
       return
     }
     setProfile(data)
+    activation(userId, data)
+  }
+
+  // Activation du compte (brief Jerome, section 3) : a la premiere
+  // connexion, la fiche passe "active" et le mail de bienvenue part.
+  // Une seule fois par chargement de l'app et par utilisateur.
+  const activationFaite = useRef(null)
+
+  async function activation(userId, fiche) {
+    if (activationFaite.current === userId) return
+    activationFaite.current = userId
+
+    let active = !!fiche?.active_le
+    if (!active) {
+      const { error } = await supabase.rpc('signaler_connexion')
+      if (error) {
+        console.warn('[auth] activation :', error.message)
+        return
+      }
+      active = true
+    }
+    if (active && !fiche?.bienvenue_envoyee_le && fiche?.role !== 'admin') {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) return
+      fetch(`${import.meta.env.BASE_URL}api/bienvenue.php`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      }).catch(() => {})
+    }
   }
 
   useEffect(() => {

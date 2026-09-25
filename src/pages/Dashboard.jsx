@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
+import { libelleFormule } from '../lib/formules'
 
 export default function Dashboard() {
   const { profile, user } = useAuth()
   const displayName = profile?.pseudo_dj || profile?.nom || user?.email?.split('@')[0] || 'Adhérent'
-  const packLabel = profile?.pack
-    ? { demo: 'Démo', resident: 'Résident', headliner: 'Headliner' }[profile.pack] || profile.pack
-    : null
+  const packLabel = libelleFormule(profile)
 
   return (
     <div className="container">
@@ -14,8 +13,8 @@ export default function Dashboard() {
         <p className="app-page-eyebrow">Bienvenue dans ton espace</p>
         <h1 className="app-page-title">Salut {displayName} 🎧</h1>
         <p className="app-page-subtitle">
-          Tu es connecté à l'espace adhérent Loops &amp; Play
-          {packLabel && <> · Parcours <strong>{packLabel}</strong></>}
+          Tu es dans le Backstage Loops &amp; Play
+          {packLabel && <> · Formule <strong>{packLabel}</strong></>}
           {profile?.role === 'admin' && <> · <em style={{ color: 'hsl(var(--accent))' }}>Admin</em></>}
         </p>
       </header>
@@ -45,6 +44,14 @@ export default function Dashboard() {
           <p>Sample packs, sorties Ft. Low Records, mix de la communauté.</p>
         </Link>
 
+        <Link to="/communaute" className="dashboard-card">
+          <div className="dashboard-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h2>Communauté</h2>
+          <p>Rejoins le Discord des élèves en un clic.</p>
+        </Link>
+
         <Link to="/profil" className="dashboard-card">
           <div className="dashboard-card-icon">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -59,7 +66,7 @@ export default function Dashboard() {
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <h2>Admin</h2>
-            <p>Gérer les adhérents, uploader des ressources, modérer les mix.</p>
+            <p>Inscriptions, comptes élèves, modules, cours filmés, Discord.</p>
           </Link>
         )}
       </section>

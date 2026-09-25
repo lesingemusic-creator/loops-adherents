@@ -4,9 +4,9 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/auth'
 
 const PACK_LABELS = {
-  demo: 'Démo',
-  resident: 'Résident',
-  headliner: 'Headliner',
+  demo: 'Bloc 1',
+  resident: 'Bloc 2',
+  headliner: 'Bloc 3',
 }
 
 const CATEGORIE_LABELS = {
@@ -157,7 +157,7 @@ export default function FormationDetail() {
 
       <header className="formation-detail-header">
         <p className="app-page-eyebrow">
-          {CATEGORIE_LABELS[formation.categorie] || 'Formation'} · Niveau {PACK_LABELS[formation.pack_required]} · Module {String(formation.ordre).padStart(2, '0')}
+          {CATEGORIE_LABELS[formation.categorie] || 'Formation'} · {PACK_LABELS[formation.pack_required]} · Module {String(formation.ordre).padStart(2, '0')}
         </p>
         <h1 className="app-page-title">{formation.titre}</h1>
         {formation.duree_min && (

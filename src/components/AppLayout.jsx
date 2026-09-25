@@ -48,7 +48,7 @@ export default function AppLayout({ children }) {
       <header className="app-navbar">
         <div className="container app-navbar-inner">
           <NavLink to="/dashboard" className="app-logo">
-            <img src="/logo.png" alt="Loops & Play" />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Loops & Play" />
             <span>Loops <em>//</em> Play</span>
           </NavLink>
 
@@ -62,6 +62,7 @@ export default function AppLayout({ children }) {
                 <span className="nav-pastille" aria-label={`${coursNonVus} nouvelle(s) séance(s)`} />
               )}
             </NavLink>
+            <NavLink to="/communaute" className={({ isActive }) => isActive ? 'active' : ''}>Communauté</NavLink>
             <NavLink to="/packs" className={({ isActive }) => isActive ? 'active' : ''}>Ressources</NavLink>
             <NavLink to="/profil" className={({ isActive }) => isActive ? 'active' : ''}>Profil</NavLink>
             {isAdmin && <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink>}

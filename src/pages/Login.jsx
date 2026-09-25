@@ -51,7 +51,7 @@ export default function Login() {
       <div className="login-card">
         <div className="login-logo-wrap">
           <Link to="/login" className="login-logo">
-            <img src="/logo.png" alt="Loops & Play" />
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Loops & Play" />
             <span>Loops <em>//</em> Play</span>
           </Link>
         </div>

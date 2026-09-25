@@ -37,8 +37,7 @@ export default function AuthRedirect() {
           return
         }
         // Nettoie l'URL et redirige
-        window.history.replaceState({}, '', '/dashboard')
-        navigate('/dashboard', { replace: true })
+                navigate('/dashboard', { replace: true })
       })
   }, [navigate])
 

@@ -5,6 +5,7 @@ import {
   formaterDate,
   dateLimiteTelechargement,
 } from '../lib/drive'
+import { libelleFormule, NIVEAUX_ACCES } from '../lib/formules'
 
 /**
  * Panneau admin : les eleves et leurs cours filmes.
@@ -33,7 +34,7 @@ export default function AdminEleves() {
     async function charger() {
       const { data, error } = await supabase
         .from('profiles')
-        .select('id, nom, pseudo_dj, role, fin_pack, retention_videos')
+        .select('id, nom, prenom, pseudo_dj, role, email, formule, discipline, mix_pack, mao_pack, fin_pack, retention_videos, compte_genere_le, active_le, discord_pseudo, discord_lie_le')
         .order('nom', { ascending: true, nullsFirst: false })
 
       if (error) {
@@ -86,6 +87,22 @@ export default function AdminEleves() {
     }
     setEleves((liste) => liste.map((e) => (e.id === eleveId ? { ...e, ...champs } : e)))
     setRetour({ type: 'ok', msg: 'Fiche mise à jour.' })
+  }
+
+  /* ---------- Nouveau mot de passe ---------- */
+
+  const [nouveauMdp, setNouveauMdp] = useState(null)
+  useEffect(() => { setNouveauMdp(null) }, [eleveId])
+
+  async function regenererMdp() {
+    if (!window.confirm("Générer un nouveau mot de passe pour cet élève ? L'ancien ne fonctionnera plus.")) return
+    const { data, error } = await supabase.rpc('admin_nouveau_mot_de_passe', { p_user_id: eleveId })
+    if (error) {
+      setRetour({ type: 'error', msg: error.message })
+      return
+    }
+    setNouveauMdp(data)
+    setRetour(null)
   }
 
   /* ---------- Ajout d'une seance ---------- */
@@ -167,6 +184,7 @@ export default function AdminEleves() {
                 {e.nom || e.pseudo_dj || 'Sans nom'}
                 {e.pseudo_dj && e.nom ? ` (${e.pseudo_dj})` : ''}
                 {e.role === 'admin' ? ' [admin]' : ''}
+                {e.role !== 'admin' && e.compte_genere_le && !e.active_le ? ' · pas encore connecté' : ''}
               </option>
             ))}
           </select>
@@ -181,6 +199,75 @@ export default function AdminEleves() {
 
       {fiche && (
         <>
+          {/* ---------- Etat du compte ---------- */}
+          <div className="admin-fiche-etat">
+            {fiche.email && <span>Identifiant <strong>{fiche.email}</strong></span>}
+            {fiche.formule && <span>Formule <strong>{libelleFormule(fiche)}</strong></span>}
+            <span>
+              Compte{' '}
+              {fiche.active_le
+                ? <span className="admin-badge admin-badge-ok">activé le {formaterDate(fiche.active_le.slice(0, 10))}</span>
+                : <span className="admin-badge admin-badge-attente">pas encore connecté</span>}
+            </span>
+            <span>
+              Discord{' '}
+              {fiche.discord_pseudo
+                ? <strong>{fiche.discord_pseudo}</strong>
+                : <span className="admin-badge">pas encore rejoint</span>}
+            </span>
+          </div>
+
+          {fiche.discord_pseudo && (
+            <p className="admin-hint">
+              Sur le serveur, son pseudo est renommé avec son nom Backstage. Donne-lui le rôle <strong>@Actif</strong> pour ouvrir les salons élèves.
+            </p>
+          )}
+
+          {/* ---------- Acces ---------- */}
+          <div className="admin-form-row">
+            <label>
+              <span>Accès cours DJ (Mix)</span>
+              <select
+                value={fiche.mix_pack || ''}
+                onChange={(ev) => majFiche({ mix_pack: ev.target.value || null })}
+                disabled={fiche.role === 'admin'}
+              >
+                {NIVEAUX_ACCES.map((n) => <option key={n.value} value={n.value}>{n.label}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Accès cours MAO</span>
+              <select
+                value={fiche.mao_pack || ''}
+                onChange={(ev) => majFiche({ mao_pack: ev.target.value || null })}
+                disabled={fiche.role === 'admin'}
+              >
+                {NIVEAUX_ACCES.map((n) => <option key={n.value} value={n.value}>{n.label}</option>)}
+              </select>
+            </label>
+            {fiche.role !== 'admin' && (
+              <label>
+                <span>Mot de passe perdu</span>
+                <button type="button" className="btn-secondary" onClick={regenererMdp}>Nouveau mot de passe</button>
+              </label>
+            )}
+          </div>
+
+          <p className="admin-hint">
+            Les accès sont réglés automatiquement à la création du compte, selon la formule. Tu peux les ajuster ici
+            au cas par cas (un bloc en plus, l'autre discipline offerte).
+          </p>
+
+          {nouveauMdp && (
+            <div className="admin-identifiants" role="status">
+              <dl>
+                <dt>Identifiant</dt><dd>{fiche.email}</dd>
+                <dt>Nouveau mot de passe</dt><dd className="admin-mdp">{nouveauMdp}</dd>
+              </dl>
+              <p className="admin-hint">Envoie-le à l'élève maintenant, il ne sera plus affiché.</p>
+            </div>
+          )}
+
           {/* ---------- Reglages ---------- */}
           <div className="admin-form-row">
             <label>

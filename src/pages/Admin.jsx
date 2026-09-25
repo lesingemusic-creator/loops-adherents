@@ -3,9 +3,11 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { supabase } from '../lib/supabase'
 import AdminEleves from '../components/AdminEleves.jsx'
+import AdminComptes from '../components/AdminComptes.jsx'
+import AdminDiscord from '../components/AdminDiscord.jsx'
 
 const PACKS = ['demo', 'resident', 'headliner']
-const PACK_LABELS = { demo: 'Démo', resident: 'Résident', headliner: 'Headliner' }
+const PACK_LABELS = { demo: 'Bloc 1', resident: 'Bloc 2', headliner: 'Bloc 3' }
 const CATEGORIES = [
   { value: 'mix', label: 'Cours de Mix' },
   { value: 'mao', label: 'Cours de MAO' },
@@ -30,6 +32,7 @@ export default function Admin() {
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [feedback, setFeedback] = useState(null)
+  const [versionEleves, setVersionEleves] = useState(0)
 
   // ------- Documents (PDFs) attachés au module en cours d'édition -------
   const [documents, setDocuments] = useState([])
@@ -271,9 +274,30 @@ export default function Admin() {
         <p className="app-page-eyebrow">Panel admin</p>
         <h1 className="app-page-title">Gestion de l'espace</h1>
         <p className="app-page-subtitle">
-          Tu peux gérer les modules de formation ici. Les adhérents verront uniquement les modules de leur catégorie et de leur niveau.
+          Inscriptions, comptes élèves, cours filmés, Discord et modules de formation. Chaque élève ne voit que les blocs de sa formule.
         </p>
       </header>
+
+      <section className="admin-section">
+        <div className="admin-section-header">
+          <h2>Inscriptions et comptes</h2>
+        </div>
+        <AdminComptes onCompteCree={() => setVersionEleves((v) => v + 1)} />
+      </section>
+
+      <section className="admin-section">
+        <div className="admin-section-header">
+          <h2>Élèves et cours filmés</h2>
+        </div>
+        <AdminEleves key={versionEleves} />
+      </section>
+
+      <section className="admin-section">
+        <div className="admin-section-header">
+          <h2>Discord</h2>
+        </div>
+        <AdminDiscord />
+      </section>
 
       <section className="admin-section">
         <div className="admin-section-header">
@@ -320,7 +344,7 @@ export default function Admin() {
               </label>
 
               <label>
-                <span>Niveau requis</span>
+                <span>Bloc</span>
                 <select
                   value={form.pack_required}
                   onChange={(e) => setForm({ ...form, pack_required: e.target.value })}
@@ -489,12 +513,6 @@ export default function Admin() {
         )}
       </section>
 
-      <section className="admin-section">
-        <div className="admin-section-header">
-          <h2>Élèves et cours filmés</h2>
-        </div>
-        <AdminEleves />
-      </section>
     </div>
   )
 }

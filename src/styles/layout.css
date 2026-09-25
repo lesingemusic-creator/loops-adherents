@@ -232,3 +232,23 @@
   margin-left: .35rem;
   vertical-align: super;
 }
+
+/* ---------- Menu sur petit ecran (25/09/2026) ----------
+   Avant : le menu etait masque sous 768px, un eleve sur telephone ne pouvait
+   pas atteindre Mon cours filme ni Communaute. Sous 1100px (8 entrees), le
+   menu passe sur une seconde ligne qui defile a l'horizontale. */
+@media (max-width: 1099px) {
+  .app-navbar-inner { flex-wrap: wrap; row-gap: .5rem; }
+  .app-nav {
+    display: flex;
+    order: 3;
+    width: 100%;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: .4rem;
+  }
+  .app-nav::-webkit-scrollbar { display: none; }
+  .app-nav a { white-space: nowrap; flex-shrink: 0; }
+}
