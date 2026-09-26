@@ -13,7 +13,7 @@ function Avatar({ membre, taille = 38 }) {
 }
 export { Avatar }
 
-function Fichier({ m }) {
+export function Fichier({ m }) {
   const [url, setUrl] = useState(null)
   useEffect(() => {
     let vivant = true
@@ -51,7 +51,7 @@ function Fichier({ m }) {
   )
 }
 
-function Integration({ texte }) {
+export function Integration({ texte }) {
   const e = premierLienIntegrable(texte)
   if (!e) return null
   const h = e.type === 'soundcloud' ? 166 : e.type === 'spotify' ? 152 : undefined

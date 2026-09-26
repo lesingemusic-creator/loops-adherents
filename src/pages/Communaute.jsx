@@ -1,9 +1,9 @@
-import CommunauteMaison from '../components/communaute/CommunauteMaison.jsx'
+import Flow from '../components/communaute/Flow.jsx'
 
 /**
- * Onglet Communaute : la communaute integree au Backstage.
- * Decision de Freddy du 26/09/2026 : elle remplace Discord, sans option.
+ * Onglet Communaute : la communaute integree au Backstage, DA « Le Flow »
+ * (choisie par Freddy le 26/09/2026). Elle remplace Discord, sans option.
  */
 export default function Communaute() {
-  return <CommunauteMaison />
+  return <Flow />
 }
