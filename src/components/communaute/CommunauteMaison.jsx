@@ -323,11 +323,6 @@ export default function CommunauteMaison({ apercu }) {
 
   return (
     <div className={`cm ${fil ? 'cm--fil' : ''}`}>
-      {apercu && (
-        <div className="cm-apercu">
-          Aperçu admin : les élèves voient encore Discord. Tu bascules dans Admin, partie Communauté.
-        </div>
-      )}
 
       {/* ---------- Barre laterale ---------- */}
       <aside className={`cm-cote ${tiroir ? 'is-ouvert' : ''}`} aria-label="Salons et messages privés">

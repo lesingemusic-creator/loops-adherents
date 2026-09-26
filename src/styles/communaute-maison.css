@@ -11,7 +11,7 @@
   grid-template-columns: var(--cm-cote) minmax(0, 1fr);
   height: calc(100dvh - 190px);
   min-height: 520px;
-  margin: -1.5rem 1.5rem 0;
+  margin: 0 1.5rem;
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
@@ -25,18 +25,14 @@
   color: hsl(var(--muted-foreground));
 }
 
+.cm-apercu-barre { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; margin-bottom: 2.2rem; }
 .cm-apercu {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  background: hsl(var(--accent));
-  color: #fff;
-  font-size: .78rem;
+  background: hsl(var(--accent) / .18);
+  color: hsl(271 100% 82%);
+  font-size: .82rem;
   font-weight: 600;
-  padding: .3rem .9rem;
-  border-radius: 0 0 .6rem .6rem;
-  white-space: nowrap;
+  padding: .45rem .9rem;
+  border-radius: .5rem;
 }
 
 /* ---------- Barre laterale ---------- */
@@ -472,7 +468,7 @@
 @media (max-width: 800px) {
   .cm, .cm--fil {
     grid-template-columns: minmax(0, 1fr);
-    margin: -2rem 0 0;
+    margin: 0;
     border-radius: 0;
     border-left: 0;
     border-right: 0;
