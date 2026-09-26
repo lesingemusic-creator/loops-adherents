@@ -11,6 +11,7 @@ export const FORMULES = {
   annee:  { label: 'Année', prix: '1 349 €', discipline: 'choix' },
   dj119:  { label: 'Cours en ligne DJ', prix: '119 €', discipline: 'dj' },
   mao119: { label: 'Cours en ligne MAO', prix: '119 €', discipline: 'mao' },
+  visio219: { label: 'MAO en visio', prix: '219 €', discipline: 'mao' },
 }
 
 export const DISCIPLINES = { dj: 'DJ', mao: 'MAO', les_deux: 'DJ et MAO' }
