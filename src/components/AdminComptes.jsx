@@ -28,7 +28,10 @@ ${url}
 Identifiant : ${identifiant}
 Mot de passe : ${motDePasse}
 
-Tu y retrouves tes cours en vidéo, le calendrier pour réserver, tes séances filmées et l'accès au Discord des élèves.`
+Tu y retrouves tes cours en vidéo, le calendrier pour réserver, tes séances filmées et la communauté des élèves.
+
+Pour l'avoir en appli sur ton téléphone :
+${url}installer`
 }
 
 export default function AdminComptes({ onCompteCree }) {

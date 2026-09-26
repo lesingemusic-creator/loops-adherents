@@ -9,6 +9,7 @@ import FormationDetail from './pages/FormationDetail.jsx'
 import Calendrier from './pages/Calendrier.jsx'
 import MonCoursFilme from './pages/MonCoursFilme.jsx'
 import Communaute from './pages/Communaute.jsx'
+import Installer from './pages/Installer.jsx'
 import Packs from './pages/Packs.jsx'
 import Profil from './pages/Profil.jsx'
 import Admin from './pages/Admin.jsx'
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/auth-redirect" element={<AuthRedirect />} />
+      <Route path="/installer" element={<Installer />} />
 
       {/* Privé (auth requise + layout commun) */}
       <Route path="/dashboard" element={<Private><Dashboard /></Private>} />

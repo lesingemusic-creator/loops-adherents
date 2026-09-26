@@ -13,6 +13,8 @@
   Require all denied
 </Files>
 
+AddType application/manifest+json .webmanifest
+
 RewriteEngine On
 RewriteBase /backstage/
 
@@ -32,5 +34,11 @@ RewriteRule ^ index.html [L]
   </FilesMatch>
   <FilesMatch "\.(js|css)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Le service worker et le manifeste doivent etre relus a chaque visite,
+  # sinon une ancienne version de l'appli resterait installee.
+  <FilesMatch "^(sw\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header set Service-Worker-Allowed "/backstage/"
   </FilesMatch>
 </IfModule>

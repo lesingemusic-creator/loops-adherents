@@ -1,0 +1,107 @@
+/* =========================================================
+   Appli installable : page Installer et bandeau (26/09/2026)
+   ========================================================= */
+
+.inst { padding-top: 3rem; padding-bottom: 4rem; }
+.inst-lien { display: inline-block; margin-top: 1rem; color: hsl(var(--primary)); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+.inst-carte {
+  max-width: 560px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+@media (max-width: 600px) { .inst-carte { padding: 1.4rem; } }
+
+.inst-icone {
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px -10px hsl(var(--accent) / .6);
+}
+
+.inst-bouton {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  font-size: 1rem;
+  padding: .95rem 1.6rem;
+  border-radius: calc(var(--radius) - 2px);
+}
+.inst-bouton--secondaire {
+  background: transparent;
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  font-size: .9rem;
+  padding: .7rem 1.1rem;
+}
+
+.inst-aide, .inst-note { color: hsl(var(--muted-foreground)); line-height: 1.6; font-size: .95rem; overflow-wrap: anywhere; }
+.inst-aide strong, .inst-etapes strong { color: hsl(var(--foreground)); }
+.inst-note { margin-top: 1.5rem; font-size: .85rem; }
+
+.inst-etapes {
+  list-style: none;
+  counter-reset: etape;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  width: 100%;
+}
+.inst-etapes li {
+  counter-increment: etape;
+  position: relative;
+  padding-left: 2.6rem;
+  line-height: 1.55;
+  color: hsl(var(--muted-foreground));
+  overflow-wrap: anywhere;
+}
+.inst-etapes li::before {
+  content: counter(etape);
+  position: absolute;
+  left: 0;
+  top: -.05rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  font-size: .85rem;
+}
+.inst-picto { display: inline-block; vertical-align: -5px; color: hsl(210 100% 65%); }
+
+.inst-ok {
+  color: hsl(var(--emerald));
+  font-weight: 600;
+}
+
+/* ---------- Bandeau en haut du Backstage (telephone) ---------- */
+
+.inst-bandeau {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin: -1.5rem auto 1.8rem;
+  padding: .7rem .9rem;
+  background: hsl(var(--primary) / .1);
+  border: 1px solid hsl(var(--primary) / .35);
+  border-radius: var(--radius);
+  font-size: .9rem;
+  line-height: 1.4;
+}
+.inst-bandeau img { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
+.inst-bandeau p { flex: 1; min-width: 0; }
+.inst-bandeau a, .inst-bandeau-action {
+  color: hsl(var(--primary));
+  font-weight: 700;
+  white-space: nowrap;
+}
+.inst-bandeau-fermer { font-size: 1.3rem; line-height: 1; color: hsl(var(--muted-foreground)); padding: 0 .2rem; }

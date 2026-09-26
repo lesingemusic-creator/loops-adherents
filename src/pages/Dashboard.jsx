@@ -1,14 +1,31 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
+import { useState } from 'react'
 import { libelleFormule } from '../lib/formules'
+import { useInstallation, bandeauMasque, masquerBandeau } from '../lib/installation'
+import '../styles/installer.css'
 
 export default function Dashboard() {
   const { profile, user } = useAuth()
   const displayName = profile?.pseudo_dj || profile?.nom || user?.email?.split('@')[0] || 'Adhérent'
   const packLabel = libelleFormule(profile)
+  const { installee, peutProposer, installer, plateforme } = useInstallation()
+  const [bandeau, setBandeau] = useState(() => !bandeauMasque())
+  const surTelephone = plateforme !== 'ordinateur'
 
   return (
     <div className="container">
+      {!installee && surTelephone && bandeau && (
+        <div className="inst-bandeau" role="note">
+          <img src={`${import.meta.env.BASE_URL}icons/icon-192.png`} alt="" />
+          <p>Mets le Backstage sur ton écran d'accueil, comme une appli.</p>
+          {peutProposer
+            ? <button type="button" className="inst-bandeau-action" onClick={installer}>Installer</button>
+            : <Link to="/installer">Comment faire</Link>}
+          <button type="button" className="inst-bandeau-fermer" aria-label="Masquer" onClick={() => { masquerBandeau(); setBandeau(false) }}>×</button>
+        </div>
+      )}
+
       <header className="app-page-header">
         <p className="app-page-eyebrow">Bienvenue dans ton espace</p>
         <h1 className="app-page-title">Salut {displayName} 🎧</h1>
@@ -59,6 +76,16 @@ export default function Dashboard() {
           <h2>Mon profil</h2>
           <p>Mets à jour ta bio, ton pseudo DJ et tes liens sociaux.</p>
         </Link>
+
+        {!installee && (
+          <Link to="/installer" className="dashboard-card">
+            <div className="dashboard-card-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <h2>L'appli</h2>
+            <p>Le Backstage sur ton écran d'accueil, en un geste.</p>
+          </Link>
+        )}
 
         {profile?.role === 'admin' && (
           <Link to="/admin" className="dashboard-card dashboard-card-admin">
