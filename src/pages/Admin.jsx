@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase'
 import AdminEleves from '../components/AdminEleves.jsx'
 import AdminComptes from '../components/AdminComptes.jsx'
 import AdminDiscord from '../components/AdminDiscord.jsx'
+import AdminCommunaute from '../components/AdminCommunaute.jsx'
 
 const PACKS = ['demo', 'resident', 'headliner']
 const PACK_LABELS = { demo: 'Bloc 1', resident: 'Bloc 2', headliner: 'Bloc 3' }
@@ -290,6 +291,13 @@ export default function Admin() {
           <h2>Élèves et cours filmés</h2>
         </div>
         <AdminEleves key={versionEleves} />
+      </section>
+
+      <section className="admin-section">
+        <div className="admin-section-header">
+          <h2>Communauté</h2>
+        </div>
+        <AdminCommunaute />
       </section>
 
       <section className="admin-section">

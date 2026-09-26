@@ -38,3 +38,9 @@ jobs:
             echo "$u -> $code"
             test "$code" = "200"
           done
+
+      - name: Les mails de la Communaute tournent
+        run: |
+          code=$(curl -s -o body.txt -w '%{http_code}' https://loopsplay.com/backstage/api/communaute-sante.php)
+          echo "HTTP $code : $(cat body.txt)"
+          test "$code" = "200"

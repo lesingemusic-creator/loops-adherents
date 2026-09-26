@@ -154,3 +154,8 @@
 }
 .profil-save:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
 .profil-save:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Preference de notification (Communaute, 26/09/2026) */
+.profil-notif { margin-top: 1rem; }
+.profil-check { display: flex; gap: .7rem; align-items: flex-start; cursor: pointer; font-size: .92rem; line-height: 1.5; color: hsl(var(--muted-foreground)); }
+.profil-check input { margin-top: .25rem; width: 1.05rem; height: 1.05rem; accent-color: hsl(var(--primary)); flex-shrink: 0; }

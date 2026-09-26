@@ -36,6 +36,22 @@ export default function AppLayout({ children }) {
 
     return () => { annule = true }
   }, [user?.id, location.pathname])
+  // Pastille Communaute : non-lus des salons et messages prives (mode maison).
+  const [commNonLus, setCommNonLus] = useState(0)
+  useEffect(() => {
+    if (!user?.id) return
+    let annule = false
+    ;(async () => {
+      const { data: reglage } = await supabase.from('reglages_app').select('valeur').eq('cle', 'communaute_mode').maybeSingle()
+      if (annule || reglage?.valeur !== 'maison' || location.pathname.startsWith('/communaute')) { if (!annule) setCommNonLus(0); return }
+      const [a, b] = await Promise.all([supabase.rpc('comm_non_lus_salons'), supabase.rpc('comm_mes_prives')])
+      if (annule) return
+      const n = (a.data || []).reduce((t, r) => t + r.non_lus, 0) + (b.data || []).reduce((t, r) => t + r.non_lus, 0)
+      setCommNonLus(n)
+    })()
+    return () => { annule = true }
+  }, [user?.id, location.pathname])
+
   const initial = (profile?.pseudo_dj || profile?.nom || 'U').charAt(0).toUpperCase()
 
   async function handleSignOut() {
@@ -62,7 +78,10 @@ export default function AppLayout({ children }) {
                 <span className="nav-pastille" aria-label={`${coursNonVus} nouvelle(s) séance(s)`} />
               )}
             </NavLink>
-            <NavLink to="/communaute" className={({ isActive }) => isActive ? 'active' : ''}>Communauté</NavLink>
+            <NavLink to="/communaute" className={({ isActive }) => isActive ? 'active' : ''}>
+              Communauté
+              {commNonLus > 0 && <span className="nav-pastille" aria-label={`${commNonLus} message(s) non lu(s)`} />}
+            </NavLink>
             <NavLink to="/packs" className={({ isActive }) => isActive ? 'active' : ''}>Ressources</NavLink>
             <NavLink to="/profil" className={({ isActive }) => isActive ? 'active' : ''}>Profil</NavLink>
             {isAdmin && <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink>}

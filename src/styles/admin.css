@@ -530,3 +530,24 @@
   .admin-identifiants dl { grid-template-columns: 1fr; gap: .15rem; }
   .admin-identifiants dd { margin-bottom: .6rem; }
 }
+
+/* Selecteurs poses hors d'un .admin-form (fiche eleve, Communaute) */
+.admin-section .admin-form-row > label:not(.admin-form label) {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  font-size: .875rem;
+  color: hsl(var(--muted-foreground));
+}
+.admin-section .admin-form-row > label > span { font-weight: 600; color: hsl(var(--foreground)); }
+.admin-section .admin-form-row > label > select,
+.admin-section .admin-form-row > label > input {
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: .5rem;
+  padding: .75rem .875rem;
+  font-size: .9375rem;
+  color: hsl(var(--foreground));
+}
+.admin-form-label-libre { grid-column: span 2; }
+@media (max-width: 640px) { .admin-form-label-libre { grid-column: auto; } }

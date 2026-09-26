@@ -15,6 +15,7 @@ export default function Profil() {
     lien_soundcloud: '',
     lien_instagram: '',
     lien_tiktok: '',
+    notif_mail: true,
   })
   const [avatarPreview, setAvatarPreview] = useState(null)
   const [avatarFile, setAvatarFile] = useState(null)
@@ -31,6 +32,7 @@ export default function Profil() {
         lien_soundcloud: profile.lien_soundcloud || '',
         lien_instagram: profile.lien_instagram || '',
         lien_tiktok: profile.lien_tiktok || '',
+        notif_mail: profile.notif_mail !== false,
       })
       setAvatarPreview(profile.photo_url || null)
     }
@@ -93,6 +95,7 @@ export default function Profil() {
         lien_instagram: form.lien_instagram.trim() || null,
         lien_tiktok: form.lien_tiktok.trim() || null,
         photo_url: photoUrl,
+        notif_mail: form.notif_mail,
         updated_at: new Date().toISOString(),
       }
 
@@ -183,6 +186,13 @@ export default function Profil() {
             <label htmlFor="lien_tiktok">TikTok</label>
             <input id="lien_tiktok" type="url" value={form.lien_tiktok} onChange={(e) => update('lien_tiktok', e.target.value)} placeholder="https://tiktok.com/@tonpseudo" />
           </div>
+        </div>
+
+        <div className="profil-field profil-notif">
+          <label className="profil-check">
+            <input type="checkbox" checked={form.notif_mail} onChange={(e) => update('notif_mail', e.target.checked)} />
+            <span>Me prévenir par mail quand on me parle dans la Communauté (messages privés, mentions, réponses, annonces de Jérôme)</span>
+          </label>
         </div>
 
         {/* Message + submit */}
