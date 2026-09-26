@@ -8,8 +8,9 @@ import '../../styles/communaute-maison.css'
 
 /**
  * La Communaute maison (plan B du 26/09/2026).
- * Les salons du serveur Discord de Jerome, dans le Backstage : pas de
- * compte a creer, pas d'invitation, chaque eleve est deja membre.
+ * Les salons de l'ancien serveur Discord de Jerome, dans le Backstage :
+ * pas de compte a creer, pas d'invitation, chaque eleve est deja membre.
+ * Remplace Discord depuis le 26/09/2026 (decision de Freddy).
  */
 
 const PAGE = 50
@@ -26,7 +27,7 @@ function regrouper(liste) {
   })
 }
 
-export default function CommunauteMaison({ apercu }) {
+export default function CommunauteMaison() {
   const { user, profile } = useAuth()
   const moi = user?.id
   const admin = profile?.role === 'admin'

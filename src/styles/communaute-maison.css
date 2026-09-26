@@ -25,16 +25,6 @@
   color: hsl(var(--muted-foreground));
 }
 
-.cm-apercu-barre { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; margin-bottom: 2.2rem; }
-.cm-apercu {
-  background: hsl(var(--accent) / .18);
-  color: hsl(271 100% 82%);
-  font-size: .82rem;
-  font-weight: 600;
-  padding: .45rem .9rem;
-  border-radius: .5rem;
-}
-
 /* ---------- Barre laterale ---------- */
 
 .cm-cote {

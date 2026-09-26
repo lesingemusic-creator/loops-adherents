@@ -131,10 +131,3 @@ export function jourSeparateur(iso) {
   if (d.toDateString() === new Date(Date.now() - 86400000).toDateString()) return 'Hier'
   return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })
 }
-
-/* ---------- Mode de l'onglet ---------- */
-
-export async function modeCommunaute() {
-  const { data } = await supabase.from('reglages_app').select('valeur').eq('cle', 'communaute_mode').maybeSingle()
-  return data?.valeur || 'discord'
-}

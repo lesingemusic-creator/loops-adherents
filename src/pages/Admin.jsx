@@ -4,7 +4,6 @@ import { useAuth } from '../lib/auth'
 import { supabase } from '../lib/supabase'
 import AdminEleves from '../components/AdminEleves.jsx'
 import AdminComptes from '../components/AdminComptes.jsx'
-import AdminDiscord from '../components/AdminDiscord.jsx'
 import AdminCommunaute from '../components/AdminCommunaute.jsx'
 
 const PACKS = ['demo', 'resident', 'headliner']
@@ -275,7 +274,7 @@ export default function Admin() {
         <p className="app-page-eyebrow">Panel admin</p>
         <h1 className="app-page-title">Gestion de l'espace</h1>
         <p className="app-page-subtitle">
-          Inscriptions, comptes élèves, cours filmés, Discord et modules de formation. Chaque élève ne voit que les blocs de sa formule.
+          Inscriptions, comptes élèves, cours filmés, communauté et modules de formation. Chaque élève ne voit que les blocs de sa formule.
         </p>
       </header>
 
@@ -300,12 +299,6 @@ export default function Admin() {
         <AdminCommunaute />
       </section>
 
-      <section className="admin-section">
-        <div className="admin-section-header">
-          <h2>Discord</h2>
-        </div>
-        <AdminDiscord />
-      </section>
 
       <section className="admin-section">
         <div className="admin-section-header">

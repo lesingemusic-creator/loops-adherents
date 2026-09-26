@@ -34,7 +34,7 @@ export default function AdminEleves() {
     async function charger() {
       const { data, error } = await supabase
         .from('profiles')
-        .select('id, nom, prenom, pseudo_dj, role, email, formule, discipline, mix_pack, mao_pack, fin_pack, retention_videos, compte_genere_le, active_le, discord_pseudo, discord_lie_le')
+        .select('id, nom, prenom, pseudo_dj, role, email, formule, discipline, mix_pack, mao_pack, fin_pack, retention_videos, compte_genere_le, active_le')
         .order('nom', { ascending: true, nullsFirst: false })
 
       if (error) {
@@ -209,19 +209,7 @@ export default function AdminEleves() {
                 ? <span className="admin-badge admin-badge-ok">activé le {formaterDate(fiche.active_le.slice(0, 10))}</span>
                 : <span className="admin-badge admin-badge-attente">pas encore connecté</span>}
             </span>
-            <span>
-              Discord{' '}
-              {fiche.discord_pseudo
-                ? <strong>{fiche.discord_pseudo}</strong>
-                : <span className="admin-badge">pas encore rejoint</span>}
-            </span>
           </div>
-
-          {fiche.discord_pseudo && (
-            <p className="admin-hint">
-              Sur le serveur, son pseudo est renommé avec son nom Backstage. Donne-lui le rôle <strong>@Actif</strong> pour ouvrir les salons élèves.
-            </p>
-          )}
 
           {/* ---------- Acces ---------- */}
           <div className="admin-form-row">

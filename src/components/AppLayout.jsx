@@ -36,14 +36,13 @@ export default function AppLayout({ children }) {
 
     return () => { annule = true }
   }, [user?.id, location.pathname])
-  // Pastille Communaute : non-lus des salons et messages prives (mode maison).
+  // Pastille Communaute : non-lus des salons et messages prives.
   const [commNonLus, setCommNonLus] = useState(0)
   useEffect(() => {
     if (!user?.id) return
     let annule = false
     ;(async () => {
-      const { data: reglage } = await supabase.from('reglages_app').select('valeur').eq('cle', 'communaute_mode').maybeSingle()
-      if (annule || reglage?.valeur !== 'maison' || location.pathname.startsWith('/communaute')) { if (!annule) setCommNonLus(0); return }
+      if (location.pathname.startsWith('/communaute')) { setCommNonLus(0); return }
       const [a, b] = await Promise.all([supabase.rpc('comm_non_lus_salons'), supabase.rpc('comm_mes_prives')])
       if (annule) return
       const n = (a.data || []).reduce((t, r) => t + r.non_lus, 0) + (b.data || []).reduce((t, r) => t + r.non_lus, 0)
