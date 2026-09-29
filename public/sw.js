@@ -11,7 +11,7 @@
    Il prepare aussi les notifications (evenements push et clic).
    ========================================================= */
 
-const VERSION = 'lp-backstage-v1'
+const VERSION = 'lp-backstage-v2' // v2 le 29/09/2026 : nouvelle icone
 const CACHE = VERSION + '-statique'
 
 self.addEventListener('install', () => self.skipWaiting())
