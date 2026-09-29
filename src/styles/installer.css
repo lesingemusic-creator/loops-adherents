@@ -98,10 +98,20 @@
   line-height: 1.4;
 }
 .inst-bandeau img { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
-.inst-bandeau p { flex: 1; min-width: 0; }
+.inst-bandeau-texte { flex: 1; min-width: 0; }
+.inst-bandeau-jamais {
+  margin-top: .15rem;
+  padding: .35rem 0;
+  font-size: .78rem;
+  color: hsl(var(--muted-foreground));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.inst-bandeau-jamais:hover { color: hsl(var(--foreground)); }
 .inst-bandeau a, .inst-bandeau-action {
   color: hsl(var(--primary));
   font-weight: 700;
   white-space: nowrap;
 }
-.inst-bandeau-fermer { font-size: 1.3rem; line-height: 1; color: hsl(var(--muted-foreground)); padding: 0 .2rem; }
+.inst-bandeau-fermer { font-size: 1.4rem; line-height: 1; color: hsl(var(--muted-foreground)); min-width: 44px; min-height: 44px; margin-right: -.5rem; cursor: pointer; }

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { useState } from 'react'
 import { libelleFormule } from '../lib/formules'
-import { useInstallation, bandeauMasque, masquerBandeau } from '../lib/installation'
+import { useInstallation, bandeauMasque, masquerBandeau, reporterBandeau } from '../lib/installation'
 import '../styles/installer.css'
 
 export default function Dashboard() {
@@ -18,11 +18,14 @@ export default function Dashboard() {
       {!installee && surTelephone && bandeau && (
         <div className="inst-bandeau" role="note">
           <img src={`${import.meta.env.BASE_URL}icons/icon-192.png`} alt="" />
-          <p>Mets le Backstage sur ton écran d'accueil, comme une appli.</p>
+          <div className="inst-bandeau-texte">
+            <p>Mets le Backstage sur ton écran d'accueil, comme une appli.</p>
+            <button type="button" className="inst-bandeau-jamais" onClick={() => { masquerBandeau(); setBandeau(false) }}>Ne plus afficher</button>
+          </div>
           {peutProposer
             ? <button type="button" className="inst-bandeau-action" onClick={installer}>Installer</button>
             : <Link to="/installer">Comment faire</Link>}
-          <button type="button" className="inst-bandeau-fermer" aria-label="Masquer" onClick={() => { masquerBandeau(); setBandeau(false) }}>×</button>
+          <button type="button" className="inst-bandeau-fermer" aria-label="Plus tard" title="Plus tard" onClick={() => { reporterBandeau(); setBandeau(false) }}>×</button>
         </div>
       )}
 
