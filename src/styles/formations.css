@@ -176,6 +176,14 @@
 .formation-card.is-done:hover {
   border-color: hsl(var(--emerald));
 }
+.formation-card.is-soon {
+  opacity: .55;
+  cursor: default;
+}
+.formation-card.is-soon:hover {
+  transform: none;
+  border-color: hsl(var(--border));
+}
 
 .formation-card-num {
   font-family: 'Clash Display', sans-serif;

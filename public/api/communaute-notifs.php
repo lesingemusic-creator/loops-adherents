@@ -100,7 +100,7 @@ foreach ($lignes as $l) {
 </table></td></tr></table></body></html>
 HTML;
 
-    if (lp_mail($email, $sujet, $html, $texte)) {
+    if (lp_mail($email, $sujet, $html, $texte, $cfg['mail_reponses'] ?? null)) {
         $envoyes++;
     } else {
         $echecs++;

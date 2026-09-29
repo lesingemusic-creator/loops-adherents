@@ -8,7 +8,13 @@ import { Audio, Texte } from './Post.jsx'
  * Stories du Flow : les annonces de Jerome des 14 derniers jours.
  * Anneau colore tant que l'eleve ne l'a pas ouverte. Visionneuse plein
  * ecran avec barres de progression, avance seule toutes les 7 s.
+ * Comme sur Instagram : tap a droite = suivante, tap sur le tiers gauche =
+ * precedente, appui long = pause, glisser a gauche ou a droite = changer,
+ * glisser vers le bas = fermer.
  */
+
+// Elements qui gardent leur propre clic (liens, lecteur audio, integrations)
+const INTERACTIF = 'a, button, input, textarea, audio, video, iframe, .fl-audio-corps, .fl-play, .fl-onde'
 
 const DUREE = 7000
 const LIBELLE = { annonces: 'Annonce', regles: 'Règles', 'contenu-exclusif': 'Exclu' }
@@ -19,6 +25,7 @@ export default function Stories({ stories, membres, admin, onVu, onNouvelle }) {
   const [pause, setPause] = useState(false)
   const debut = useRef(0)
   const cumul = useRef(0)
+  const appui = useRef(null)
 
   const s = ouverte !== null ? stories[ouverte] : null
 
@@ -65,6 +72,31 @@ export default function Stories({ stories, membres, admin, onVu, onNouvelle }) {
     setOuverte((i) => (i > 0 ? i - 1 : i))
   }
 
+  function poser(e) {
+    if (e.target.closest(INTERACTIF)) return
+    appui.current = { x: e.clientX, y: e.clientY, t: performance.now() }
+    setPause(true)
+  }
+  function lever(e) {
+    const a = appui.current
+    appui.current = null
+    setPause(false)
+    if (!a) return
+    const dx = e.clientX - a.x
+    const dy = e.clientY - a.y
+    if (dy > 90 && Math.abs(dx) < 70) { setOuverte(null); return }       // vers le bas : fermer
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {              // glisser
+      if (dx < 0) suivante(); else precedente()
+      return
+    }
+    if (performance.now() - a.t > 350) return                             // appui long : juste une pause
+    if (a.x < window.innerWidth / 3) precedente(); else suivante()
+  }
+  function annuler() {
+    appui.current = null
+    setPause(false)
+  }
+
   if (!stories.length && !admin) return null
 
   return (
@@ -88,7 +120,8 @@ export default function Stories({ stories, membres, admin, onVu, onNouvelle }) {
 
       {s && (
         <div className="fl-visio" role="dialog" aria-modal="true" aria-label="Annonce de Jérôme"
-          onPointerDown={() => setPause(true)} onPointerUp={() => setPause(false)} onPointerCancel={() => setPause(false)}>
+          onPointerDown={poser} onPointerUp={lever} onPointerCancel={annuler}
+          onContextMenu={(e) => e.preventDefault()}>
           <div className="fl-visio-barres">
             {stories.map((x, i) => (
               <span key={x.id}><i style={{ transform: `scaleX(${i < ouverte ? 1 : i === ouverte ? prog : 0})` }} /></span>
@@ -112,8 +145,9 @@ export default function Stories({ stories, membres, admin, onVu, onNouvelle }) {
               ? <Audio m={{ ...s, fichier_nom: 'Extrait', nb_ecoutes: 0 }} />
               : <Fichier m={s} />)}
           </div>
-          <button type="button" className="fl-visio-zone fl-visio-zone--g" aria-label="Précédente" onClick={precedente} />
-          <button type="button" className="fl-visio-zone fl-visio-zone--d" aria-label="Suivante" onClick={suivante} />
+          {/* Pour le clavier et les lecteurs d'ecran ; au doigt, tout l'ecran reagit */}
+          <button type="button" className="fl-visio-zone fl-visio-zone--g" aria-label="Story précédente" onPointerDown={(e) => e.stopPropagation()} onPointerUp={(e) => e.stopPropagation()} onClick={precedente} />
+          <button type="button" className="fl-visio-zone fl-visio-zone--d" aria-label="Story suivante" onPointerDown={(e) => e.stopPropagation()} onPointerUp={(e) => e.stopPropagation()} onClick={suivante} />
         </div>
       )}
     </>

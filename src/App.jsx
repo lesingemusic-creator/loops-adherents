@@ -12,6 +12,7 @@ import Communaute from './pages/Communaute.jsx'
 import Installer from './pages/Installer.jsx'
 import Packs from './pages/Packs.jsx'
 import Profil from './pages/Profil.jsx'
+import Aide from './pages/Aide.jsx'
 import Admin from './pages/Admin.jsx'
 
 // Helper qui combine route protégée + layout
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="/communaute" element={<Private><Communaute /></Private>} />
       <Route path="/packs" element={<Private><Packs /></Private>} />
       <Route path="/profil" element={<Private><Profil /></Private>} />
+      <Route path="/aide" element={<Private><Aide /></Private>} />
       <Route path="/admin" element={<Private><Admin /></Private>} />
 
       {/* Fallback */}

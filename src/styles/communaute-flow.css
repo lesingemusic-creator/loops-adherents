@@ -87,9 +87,14 @@
 .fl-visio-corps > * { pointer-events: auto; }
 .fl-visio-corps h2 { font-family: 'Clash Display', sans-serif; font-weight: 700; font-size: clamp(2rem, 8vw, 3.2rem); line-height: 1.02; letter-spacing: -.03em; }
 .fl-visio-corps .fl-texte { font-size: 1.1rem; }
-.fl-visio-zone { position: absolute; top: 18%; bottom: 0; width: 28%; z-index: 1; }
-.fl-visio-zone--g { left: 0; }
-.fl-visio-zone--d { right: 0; }
+/* Au doigt, c'est tout l'ecran qui reagit (Stories.jsx) : ces boutons ne
+   servent qu'au clavier, invisibles tant qu'ils n'ont pas le focus. */
+.fl-visio { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: pointer; }
+.fl-visio a, .fl-visio button, .fl-visio iframe, .fl-visio .fl-audio-corps { cursor: pointer; touch-action: manipulation; }
+.fl-visio-zone { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.fl-visio-zone:focus-visible { clip: auto; width: 44px; height: 44px; top: 50%; border-radius: 9999px; outline: 2px solid #ffe713; background: rgba(0, 0, 0, .4); }
+.fl-visio-zone--g { left: .5rem; }
+.fl-visio-zone--d { right: .5rem; }
 
 /* ---------- Grille : colonne + fil ---------- */
 .fl-grille { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); grid-template-areas: "fil cote"; gap: 2.5rem; align-items: start; }

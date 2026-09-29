@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { supabase } from '../lib/supabase'
+import Tutoriel from './Tutoriel'
 import '../styles/layout.css'
+import '../styles/aide.css'
 
 /**
  * Layout partagé par toutes les pages protégées (dashboard, formations, packs, profil, admin).
@@ -69,24 +71,27 @@ export default function AppLayout({ children }) {
 
           <nav className="app-nav">
             <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink>
-            <NavLink to="/formations" className={({ isActive }) => isActive ? 'active' : ''}>Formations</NavLink>
-            <NavLink to="/calendrier" className={({ isActive }) => isActive ? 'active' : ''}>Calendrier</NavLink>
-            <NavLink to="/mon-cours-filme" className={({ isActive }) => isActive ? 'active' : ''}>
+            <NavLink to="/formations" data-tuto="formations" className={({ isActive }) => isActive ? 'active' : ''}>Formations</NavLink>
+            <NavLink to="/calendrier" data-tuto="calendrier" className={({ isActive }) => isActive ? 'active' : ''}>Calendrier</NavLink>
+            <NavLink to="/mon-cours-filme" data-tuto="cours-filme" className={({ isActive }) => isActive ? 'active' : ''}>
               Mon cours filmé
               {coursNonVus > 0 && (
                 <span className="nav-pastille" aria-label={`${coursNonVus} nouvelle(s) séance(s)`} />
               )}
             </NavLink>
-            <NavLink to="/communaute" className={({ isActive }) => isActive ? 'active' : ''}>
+            <NavLink to="/communaute" data-tuto="communaute" className={({ isActive }) => isActive ? 'active' : ''}>
               Communauté
               {commNonLus > 0 && <span className="nav-pastille" aria-label={`${commNonLus} message(s) non lu(s)`} />}
             </NavLink>
-            <NavLink to="/packs" className={({ isActive }) => isActive ? 'active' : ''}>Ressources</NavLink>
-            <NavLink to="/profil" className={({ isActive }) => isActive ? 'active' : ''}>Profil</NavLink>
+            <NavLink to="/packs" data-tuto="ressources" className={({ isActive }) => isActive ? 'active' : ''}>Ressources</NavLink>
+            <NavLink to="/profil" data-tuto="profil" className={({ isActive }) => isActive ? 'active' : ''}>Profil</NavLink>
             {isAdmin && <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink>}
           </nav>
 
           <div className="app-user">
+            <NavLink to="/aide" data-tuto="aide" className={({ isActive }) => `app-aide${isActive ? ' active' : ''}`} aria-label="Aide" title="Aide">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </NavLink>
             <div className="app-avatar" title={profile?.pseudo_dj || profile?.nom || 'Adhérent'}>
               {profile?.photo_url ? (
                 <img src={profile.photo_url} alt="Avatar" />
@@ -104,6 +109,8 @@ export default function AppLayout({ children }) {
       <main className="app-main">
         {children}
       </main>
+
+      <Tutoriel uid={user?.id} />
     </div>
   )
 }

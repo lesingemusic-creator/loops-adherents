@@ -187,11 +187,15 @@ export default function Formations() {
             <div className="formations-grid">
               {list.map((f) => {
                 const done = progression.has(f.id)
+                const bientot = !f.video_youtube_id
+                // Module sans video : carte visible mais pas cliquable
+                const Carte = bientot ? 'div' : Link
+                const lien = bientot ? { 'aria-disabled': true } : { to: `/formations/${f.id}` }
                 return (
-                  <Link
-                    to={`/formations/${f.id}`}
+                  <Carte
+                    {...lien}
                     key={f.id}
-                    className={`formation-card${done ? ' is-done' : ''}`}
+                    className={`formation-card${done ? ' is-done' : ''}${bientot ? ' is-soon' : ''}`}
                   >
                     <div className="formation-card-num">
                       {String(f.ordre).padStart(2, '0')}
@@ -201,8 +205,8 @@ export default function Formations() {
                       {f.description && <p>{f.description}</p>}
                       <div className="formation-card-meta">
                         {f.duree_min && <span>{f.duree_min} min</span>}
-                        {!f.video_youtube_id && (
-                          <span className="formation-card-soon">Bientôt</span>
+                        {bientot && (
+                          <span className="formation-card-soon">Bientôt disponible</span>
                         )}
                         {done && (
                           <span className="formation-card-done">
@@ -212,7 +216,7 @@ export default function Formations() {
                         )}
                       </div>
                     </div>
-                  </Link>
+                  </Carte>
                 )
               })}
             </div>

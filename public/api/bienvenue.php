@@ -88,7 +88,7 @@ $html = <<<HTML
 </table></td></tr></table></body></html>
 HTML;
 
-$ok = lp_mail($email, $sujet, $html, $texte, $cfg['mail_jerome']);
+$ok = lp_mail($email, $sujet, $html, $texte, $cfg['mail_reponses'] ?? $cfg['mail_jerome']);
 
 if (!$ok) {
     // On rend la main : l'envoi sera retente a la prochaine connexion.
