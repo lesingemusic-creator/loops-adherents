@@ -49,9 +49,9 @@ export const FAQ = [
   },
   {
     cat: 'cours',
-    q: 'Je ne vois pas tous les blocs de cours, c\'est normal ?',
-    r: "Ce que tu vois dépend de ta formule (DJ, MAO, et le nombre de blocs). Si un bloc te semble manquer, écris à Jérôme, il vérifie ton accès.",
-    mots: 'bloc blocs manque acces formation cours dj mao niveau voir pas',
+    q: 'Pourquoi je n\'ai pas accès aux cours vidéo ?',
+    r: "Les cours vidéo sont un produit à part : les cours en ligne DJ Débutant ou MAO Débutant (119 € chacun). Les packs et les formules à l'année se passent en studio et ne les incluent pas. Pour les ajouter, écris à Jérôme.",
+    mots: 'bloc blocs manque acces formation formations cours video videos en ligne dj mao niveau voir pas cadenas bloque pack inclus',
     lien: { to: '/formations', label: 'Voir mes formations' },
   },
   {

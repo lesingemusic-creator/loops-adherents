@@ -147,9 +147,15 @@ export default function Formations() {
               ? 'Apprends à mixer du beatmatching aux sets en harmonique, structure de set, EQ, effets, lecture de piste et plus.'
               : 'Découvre la production musicale assistée par ordinateur : ton premier track, arrangement, sound design, mastering.'}
           </p>
+          <p>
+            Les cours vidéo sont un produit à part, en plus de tes cours au studio :{' '}
+            <a href="https://loopsplay.com/#cours-en-ligne" target="_blank" rel="noopener noreferrer">
+              cours en ligne {activeTab === 'mix' ? 'DJ' : 'MAO'} Débutant, 119 €
+            </a>.
+          </p>
           <a
             href={`https://wa.me/33759541545?text=${encodeURIComponent(
-              `Bonjour Jérôme ! Je suis adhérent et je souhaite ajouter les cours de ${activeTab === 'mix' ? 'Mix' : 'MAO'} à mon parcours.`
+              `Bonjour Jérôme ! Je suis adhérent et je souhaite ajouter le cours en ligne ${activeTab === 'mix' ? 'DJ' : 'MAO'} Débutant à mon parcours.`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

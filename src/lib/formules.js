@@ -20,12 +20,12 @@ export const DISCIPLINES = { dj: 'DJ', mao: 'MAO', les_deux: 'DJ et MAO' }
 // valeurs en base : demo = bloc 1, resident = bloc 2, headliner = bloc 3.
 export const BLOCS = { demo: 'Bloc 1', resident: 'Bloc 2', headliner: 'Bloc 3' }
 
-// Ce qu'un eleve voit dans une discipline, selon la valeur de mix_pack / mao_pack.
+// Acces aux videos d'une discipline (mix_pack / mao_pack). Depuis le 01/10/2026,
+// la formation en ligne est un produit a part : plus de niveau par pack, c'est
+// tout ou rien. Seuls les cours en ligne l'ouvrent ; Jerome peut l'ouvrir a la main.
 export const NIVEAUX_ACCES = [
   { value: '', label: 'Aucun accès' },
-  { value: 'demo', label: 'Bloc 1' },
-  { value: 'resident', label: 'Blocs 1 et 2' },
-  { value: 'headliner', label: 'Blocs 1 à 3' },
+  { value: 'headliner', label: 'Accès complet' },
 ]
 
 export function libelleFormule(profil) {
