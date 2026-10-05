@@ -87,8 +87,12 @@ export default function Profil() {
         photoUrl = await uploadAvatar()
       }
 
+      // Le prenom des mails suit le premier mot du nom saisi ici (05/10/2026) :
+      // avant, un prenom mal tape a l'inscription restait dans les mails.
+      const nomSaisi = form.nom.trim()
       const updates = {
-        nom: form.nom.trim() || null,
+        nom: nomSaisi || null,
+        ...(nomSaisi ? { prenom: nomSaisi.split(/\s+/)[0] } : {}),
         pseudo_dj: form.pseudo_dj.trim() || null,
         bio: form.bio.trim() || null,
         lien_soundcloud: form.lien_soundcloud.trim() || null,

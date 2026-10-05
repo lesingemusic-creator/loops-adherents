@@ -211,6 +211,26 @@ export default function AdminEleves() {
             </span>
           </div>
 
+          {/* ---------- Prenom et nom (05/10/2026) : le prenom sert dans les mails ---------- */}
+          <div className="admin-form-row" key={`noms-${fiche.id}`}>
+            <label>
+              <span>Prénom (utilisé dans les mails)</span>
+              <input
+                type="text"
+                defaultValue={fiche.prenom || ''}
+                onBlur={(ev) => { const v = ev.target.value.trim(); if (v && v !== (fiche.prenom || '')) majFiche({ prenom: v }) }}
+              />
+            </label>
+            <label>
+              <span>Nom complet</span>
+              <input
+                type="text"
+                defaultValue={fiche.nom || ''}
+                onBlur={(ev) => { const v = ev.target.value.trim(); if (v && v !== (fiche.nom || '')) majFiche({ nom: v }) }}
+              />
+            </label>
+          </div>
+
           {/* ---------- Acces ---------- */}
           <div className="admin-form-row">
             <label>
