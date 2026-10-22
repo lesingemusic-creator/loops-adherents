@@ -31,10 +31,13 @@ jobs:
           echo "HTTP $code : $(cat body.txt)"
           test "$code" = "200"
 
+      # Hostinger laisse parfois pendre une connexion venue des machines GitHub (5, 20 et 22/10/2026 :
+      # 2 min 15 de blocage, site joignable partout ailleurs). On coupe a 20 s et on reessaie 3 fois :
+      # une vraie panne echoue toujours, un hoquet ne declenche plus d'alerte.
       - name: Le Backstage repond
         run: |
           for u in https://loopsplay.com/backstage/ https://loopsplay.com/backstage/api/discord-config.php; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "$u")
+            code=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 10 -m 20 --retry 3 --retry-delay 15 --retry-all-errors "$u")
             echo "$u -> $code"
             test "$code" = "200"
           done
