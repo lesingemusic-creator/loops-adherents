@@ -34,7 +34,9 @@ export default function Login() {
       setError(
         authError.message === 'Invalid login credentials'
           ? 'Email ou mot de passe incorrect.'
-          : 'Erreur : ' + authError.message
+          : /banned/i.test(authError.message)
+            ? "Ton accès au Backstage est terminé (il reste ouvert un mois après la fin de ta formation). Pour le prolonger, écris à Jérôme sur WhatsApp au 07 59 54 15 45."
+            : 'Erreur : ' + authError.message
       )
       return
     }

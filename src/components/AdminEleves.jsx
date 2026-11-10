@@ -3,6 +3,8 @@ import { supabase } from '../lib/supabase'
 import {
   extraireIdDrive,
   formaterDate,
+  finAcces,
+  aujourdhui,
   dateLimiteTelechargement,
 } from '../lib/drive'
 import { libelleFormule, NIVEAUX_ACCES } from '../lib/formules'
@@ -290,12 +292,11 @@ export default function AdminEleves() {
             </label>
 
             <label>
-              <span>Dernière heure de cours</span>
+              <span>Fin de la formation (dernière heure de cours)</span>
               <input
                 type="date"
                 value={fiche.fin_pack || ''}
                 onChange={(ev) => majFiche({ fin_pack: ev.target.value || null })}
-                disabled={fiche.retention_videos === 'rotation5'}
               />
             </label>
           </div>
@@ -306,6 +307,15 @@ export default function AdminEleves() {
               : limite
                 ? `L'élève voit un compte à rebours et peut télécharger jusqu'au ${formaterDate(limite)}. La suppression sur ton Drive reste à faire à la main : pose-toi un rappel.`
                 : "Renseigne la dernière heure de cours pour que l'élève voie sa fenêtre de 15 jours."}
+          </p>
+          <p className="admin-hint">
+            {fiche.role === 'admin'
+              ? "Compte admin : l'accès ne se ferme jamais."
+              : finAcces(fiche.fin_pack)
+                ? (finAcces(fiche.fin_pack) < aujourdhui()
+                    ? `Accès au Backstage FERMÉ : il était ouvert jusqu'au ${formaterDate(finAcces(fiche.fin_pack))} (un mois après la fin de la formation). Pour le rouvrir, repousse la date de fin.`
+                    : `Accès au Backstage ouvert jusqu'au ${formaterDate(finAcces(fiche.fin_pack))} inclus (un mois après la fin de la formation), puis fermé tout seul. Pour prolonger, repousse la date de fin.`)
+                : "Accès au Backstage ouvert sans limite tant que la fin de la formation n'est pas renseignée. Une fois la date posée, l'accès se ferme tout seul un mois après."}
           </p>
 
           {/* ---------- Ajout ---------- */}

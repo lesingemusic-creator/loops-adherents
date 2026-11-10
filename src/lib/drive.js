@@ -86,3 +86,25 @@ export function formaterDate(dateIso) {
   if (Number.isNaN(d.getTime())) return ''
   return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
 }
+
+/* ---------------------------------------------------------
+   Fin d'acces au Backstage : fin_pack + 1 mois (10/11/2026).
+   Meme calcul que le trigger SQL fin_acces_un_mois (migration 011) :
+   le jour est ramene au dernier jour du mois s'il n'existe pas
+   (31/01 -> 28/02), comme « date + interval '1 month' » en PostgreSQL.
+   Renvoie le dernier jour d'acces, au format AAAA-MM-JJ.
+   --------------------------------------------------------- */
+export function finAcces(finPack) {
+  if (!finPack || !/^\d{4}-\d{2}-\d{2}$/.test(finPack)) return null
+  const [an, mois, jour] = finPack.split('-').map(Number)
+  const anCible = mois === 12 ? an + 1 : an
+  const moisCible = mois === 12 ? 1 : mois + 1
+  const dernier = new Date(anCible, moisCible, 0).getDate()
+  const j = Math.min(jour, dernier)
+  return `${anCible}-${String(moisCible).padStart(2, '0')}-${String(j).padStart(2, '0')}`
+}
+
+export function aujourdhui() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}

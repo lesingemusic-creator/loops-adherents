@@ -47,3 +47,19 @@ jobs:
           code=$(curl -s -o body.txt -w '%{http_code}' https://loopsplay.com/backstage/api/communaute-sante.php)
           echo "HTTP $code : $(cat body.txt)"
           test "$code" = "200"
+
+      # Fermeture des acces un mois apres la fin de formation (migration 011, 10/11/2026).
+      # Echoue si la passe horaire pg_cron n'a pas tourne depuis 3 h, ou si un compte
+      # expire est encore ouvert.
+      - name: Les acces expires se ferment
+        env:
+          URL: https://tisypqtknflvtlbgjqqw.supabase.co
+          KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpc3lwcXRrbmZsdnRsYmdqcXF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0ODU1MDYsImV4cCI6MjA5NjA2MTUwNn0.y1q7z5ICVueCSQHGIf2jKKDpcDZh2PkKZn0ImzsjZ1Y
+        run: |
+          r=$(curl -s -X POST "$URL/rest/v1/rpc/controle_fin_acces" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" -H 'Content-Type: application/json')
+          echo "$r"
+          test "$(echo "$r" | jq -r '.expires_ouverts')" = "0"
+          age=$(( $(date +%s) - $(date -d "$(echo "$r" | jq -r '.derniere_passe')" +%s) ))
+          echo "derniere passe il y a $age s"
+          test "$age" -lt 10800
