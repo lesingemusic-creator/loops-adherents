@@ -110,8 +110,8 @@ export default function Login() {
         <footer className="login-footer">
           <p>
             Pas encore adhérent ?{' '}
-            <a href="https://wa.me/33759541545" target="_blank" rel="noopener noreferrer">
-              Réserve un appel découverte
+            <a href="https://wa.me/33759541545?text=Bonjour%20J%C3%A9r%C3%B4me%20!%20Je%20souhaite%20r%C3%A9server%20mon%20cours%20d%27essai%20gratuit." target="_blank" rel="noopener noreferrer">
+              Réserve ton cours d'essai gratuit
             </a>
           </p>
         </footer>
